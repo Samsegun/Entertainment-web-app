@@ -4,7 +4,7 @@ import Home from "./Pages/Home/Home";
 
 function App() {
   return (
-    <div className="font-outfit bg-very-dark-blue">
+    <div className='font-outfit bg-very-dark-blue scroll-smooth'>
       {/* page navigation */}
       <MainNav />
 
