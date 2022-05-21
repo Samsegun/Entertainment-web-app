@@ -13,16 +13,10 @@ module.exports = {
       outfit: ["Outfit", "sans-serif"],
     },
     extend: {
-      // minHeight: {
-      //   trendHeight: "max-content",
-      // },
-      // minWidth: {
-      //   trendWidth: "250px",
-      // },
-      // spacing: {
-      //   trendBottom: "16px",
-      // },
+      gridTemplateColumns: {
+        custom: "repeat(auto-fit, minmax(164px, 1fr))",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

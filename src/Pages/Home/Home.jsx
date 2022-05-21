@@ -3,7 +3,7 @@ import Recommended from "./Recommended";
 
 const Home = () => {
   return (
-    <main>
+    <main className='max-w-[1920px] m-auto'>
       <Trending />
       <Recommended />
     </main>
