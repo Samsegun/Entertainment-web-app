@@ -1,5 +1,7 @@
+import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
 import appData from "starter-code/data.json";
+import GridContainer from "Components/GridContainer";
 
 const Recommended = () => {
     // filter out data that are trending
@@ -8,12 +10,9 @@ const Recommended = () => {
 
     return (
         <section className='px-4 mt-6'>
-            <h2 className='text-xl font-light text-white'>
-                Recommended for you
-            </h2>
+            <PageTitle>Recommended for you</PageTitle>
 
-            {/* recommended movies */}
-            <ul className='grid grid-cols-custom gap-[15px] mt-6 pb-16'>
+            <GridContainer>
                 {recommendedData.map((data, idx) => (
                     <li key={idx}>
                         <Card
@@ -23,11 +22,11 @@ const Recommended = () => {
                             innerHeight={"min-h-[110px]"}
                             padded={"pl-0"}
                             data={data}
-                            trending={false}
+                            dataType={"recommended"}
                         />
                     </li>
                 ))}
-            </ul>
+            </GridContainer>
         </section>
     );
 };

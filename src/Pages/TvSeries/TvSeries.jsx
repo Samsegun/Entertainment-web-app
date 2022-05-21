@@ -1,18 +1,17 @@
+import Card from "Components/CardUI";
 import GridContainer from "Components/GridContainer";
 import PageTitle from "Components/PageTitle";
-import Card from "Components/CardUI";
 import data from "starter-code/data.json";
 
-const Movies = () => {
-    const moviesData = data.filter(item => item.category === "Movie");
+const TvSeries = () => {
+    const tvseriesData = data.filter(item => item.category === "TV Series");
 
     return (
         <main className='px-4 mt-6'>
-            <PageTitle>Movies</PageTitle>
-
+            <PageTitle>TV Series</PageTitle>
             <section className='mt-6'>
                 <GridContainer>
-                    {moviesData.map((movie, idx) => (
+                    {tvseriesData.map((series, idx) => (
                         <li key={idx}>
                             <Card
                                 minWidth={"min-w-[164px]"}
@@ -20,8 +19,8 @@ const Movies = () => {
                                 height={"min-h-[175px]"}
                                 innerHeight={"min-h-[110px]"}
                                 padded={"pl-0"}
-                                data={movie}
-                                dataType={"movies"}
+                                data={series}
+                                dataType={"series"}
                             />
                         </li>
                     ))}
@@ -31,4 +30,4 @@ const Movies = () => {
     );
 };
 
-export default Movies;
+export default TvSeries;

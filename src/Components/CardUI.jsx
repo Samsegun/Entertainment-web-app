@@ -12,18 +12,34 @@ const Card = ({
     innerHeight,
     padded,
     data,
-    trending,
+    dataType,
 }) => {
     const { category, rating, title, year, isBookmarked } = data;
 
-    // for thumbnail
-    const thumbnail = trending
-        ? data.thumbnail.trending
-        : data.thumbnail.regular;
-    // for linear gradients
-    const gradients = trending
-        ? "linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.75) 100%),"
-        : "";
+    let thumbnail;
+    let gradients;
+
+    if (dataType === "trending") {
+        thumbnail = data.thumbnail.trending;
+        gradients =
+            "linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.75) 100%),";
+    }
+
+    if (dataType === "recommended") {
+        thumbnail = data.thumbnail.regular;
+        gradients = "";
+    }
+
+    if (
+        dataType === "movies" ||
+        dataType === "series" ||
+        dataType === "bookmark"
+    ) {
+        thumbnail = data.isTrending
+            ? data.thumbnail.trending
+            : data.thumbnail.regular;
+        gradients = "";
+    }
 
     return (
         <div className={`${height}`}>
