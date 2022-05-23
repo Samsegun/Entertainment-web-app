@@ -2,7 +2,7 @@ import searchIcon from "starter-code/assets/icon-search.svg";
 
 const SearchBar = () => {
     return (
-        <form className='flex items-center pl-4 mt-6 w-full xl:w-full xl:max-w-[1920px] xl:m-auto'>
+        <form className='flex items-center pl-4 mt-6 w-full xl:w-full xl:max-w-[1920px] xl:m-auto xl:pl-[164px]'>
             <button className=''>
                 <img src={searchIcon} alt='search icon' />
             </button>

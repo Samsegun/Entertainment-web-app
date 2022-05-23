@@ -12,7 +12,7 @@ const Trending = () => {
 
             {/* trending cards */}
             <div className='mt-4 overflow-x-scroll scrollbar'>
-                <div className='flex gap-4 min-w-[1280px] md:min-w-[2510px]'>
+                <div className='flex gap-4 min-w-[1280px] md:min-w-[2510px] md:gap-10'>
                     {trendingData.map((data, idx) => (
                         <Card
                             minWidth={"min-w-[250px] md:min-w-[470px]"}

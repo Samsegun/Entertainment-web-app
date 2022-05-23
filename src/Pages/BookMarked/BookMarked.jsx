@@ -13,7 +13,7 @@ const BookMarked = () => {
     );
 
     return (
-        <main className='px-4 mt-6'>
+        <main className='px-4 mt-6 xl:pl-[164px]'>
             {/* bokkmarked movies */}
             <PageTitle>Bookmarked Movies</PageTitle>
 

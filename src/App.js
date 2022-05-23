@@ -8,7 +8,9 @@ import TvSeries from "Pages/TvSeries/TvSeries";
 
 function App() {
     return (
-        <div className='min-h-screen font-outfit bg-very-dark-blue scroll-smooth md:pt-6 '>
+        <div
+            className='relative min-h-screen font-outfit bg-very-dark-blue 
+        scroll-smooth xl:pt-16 max-w-[1920px] mx-auto'>
             <Router>
                 {/* page navigation */}
                 <MainNav />

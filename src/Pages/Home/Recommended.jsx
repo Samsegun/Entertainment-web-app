@@ -9,7 +9,7 @@ const Recommended = () => {
     console.log(recommendedData);
 
     return (
-        <section className='px-4 mt-6'>
+        <section className='px-4 mt-6 md:px-6'>
             <PageTitle>Recommended for you</PageTitle>
 
             <GridContainer>

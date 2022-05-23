@@ -7,7 +7,7 @@ const TvSeries = () => {
     const tvseriesData = data.filter(item => item.category === "TV Series");
 
     return (
-        <main className='px-4 mt-6'>
+        <main className='px-4 mt-6 xl:pl-[164px]'>
             <PageTitle>TV Series</PageTitle>
             <section className='mt-6'>
                 <GridContainer>

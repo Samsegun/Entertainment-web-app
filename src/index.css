@@ -5,6 +5,6 @@
 @tailwind utilities;
 
 
-/* body {
-    color: #8c9fd076;
-} */
+body {
+    background-color: #10141E;
+}
