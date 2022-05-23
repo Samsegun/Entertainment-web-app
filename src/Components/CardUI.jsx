@@ -1,3 +1,4 @@
+import { useMediaQuery } from "react-responsive";
 import bookmarkEmpty from "starter-code/assets/icon-bookmark-empty.svg";
 import bookmarkIcon from "starter-code/assets/icon-bookmark-full.svg";
 import tvseriesIcon from "starter-code/assets/icon-category-tv.svg";
@@ -16,17 +17,26 @@ const Card = ({
 }) => {
     const { category, rating, title, year, isBookmarked } = data;
 
+    // media queries for setting bg-image
+    const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+    const isTablet = useMediaQuery({ query: "(min-width: 768px)" });
+    const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
+
     let thumbnail;
     let gradients;
 
     if (dataType === "trending") {
-        thumbnail = data.thumbnail.trending;
+        thumbnail = isMobile
+            ? data.thumbnail.trending.small
+            : data.thumbnail.trending.large;
         gradients =
             "linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.75) 100%),";
     }
 
     if (dataType === "recommended") {
-        thumbnail = data.thumbnail.regular;
+        isMobile && (thumbnail = data.thumbnail.regular.small);
+        isTablet && (thumbnail = data.thumbnail.regular.medium);
+        isDesktop && (thumbnail = data.thumbnail.regular.large);
         gradients = "";
     }
 
@@ -35,9 +45,13 @@ const Card = ({
         dataType === "series" ||
         dataType === "bookmark"
     ) {
-        thumbnail = data.isTrending
-            ? data.thumbnail.trending
-            : data.thumbnail.regular;
+        isMobile && (thumbnail = data.thumbnail.regular.small);
+        isTablet && (thumbnail = data.thumbnail.regular.medium);
+        isDesktop && (thumbnail = data.thumbnail.regular.large);
+
+        // thumbnail = data.isTrending
+        //     ? data.thumbnail.trending
+        //     : data.thumbnail.regular;
         gradients = "";
     }
 
@@ -45,7 +59,7 @@ const Card = ({
         <div className={`${height}`}>
             <article
                 style={{
-                    backgroundImage: `${gradients} url(${thumbnail.small})`,
+                    backgroundImage: `${gradients} url(${thumbnail})`,
                 }}
                 className={`rounded-lg relative bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}>
                 <button className='absolute p-2 rounded-full right-2 top-2 bg-bookmark'>
@@ -58,9 +72,14 @@ const Card = ({
                 </button>
 
                 {/* movie info */}
-                <div className={`absolute  ${padded ? padded : ""} ${bottom}`}>
+                <div className={`absolute ${padded ? padded : ""} ${bottom}`}>
                     {/* heading */}
-                    <div className='flex items-center gap-2 text-xs font-light'>
+                    <div
+                        className={`flex items-center gap-2 text-xs font-light ${
+                            dataType === "trending"
+                                ? "md:text-[15px]"
+                                : "md:gap-3"
+                        }`}>
                         <span className='text-white opacity-75'>{year}</span>
                         <Dot />
 
@@ -80,7 +99,12 @@ const Card = ({
                         </span>
                     </div>
                     {/* movie title */}
-                    <h2 className='font-medium text-[15px] mt-1 text-white tracking-wider'>
+                    <h2
+                        className={`font-medium text-[15px] mt-1 text-white tracking-wider ${
+                            dataType === "trending"
+                                ? "md:text-2xl"
+                                : "md:text-lg"
+                        }`}>
                         {title}
                     </h2>
                 </div>

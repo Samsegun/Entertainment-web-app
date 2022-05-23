@@ -3,20 +3,20 @@ import NavLinks from "./NavLinks";
 import UserProfile from "./UserProfile";
 
 const MainNav = () => {
-  return (
-    <nav className='bg-dark-blue py-[18px] px-4'>
-      <div className='flex items-center justify-between max-w-[1920px] m-auto'>
-        {/* main logo */}
-        <img src={logo} alt='logo' />
+    return (
+        <nav className='bg-dark-blue py-[18px] px-4 md:mx-4 rounded-[10px]'>
+            <div className='flex items-center justify-between max-w-[1920px] m-auto'>
+                {/* main logo */}
+                <img src={logo} alt='logo' />
 
-        {/* navigation */}
-        <NavLinks />
+                {/* navigation */}
+                <NavLinks />
 
-        {/* user profile */}
-        <UserProfile />
-      </div>
-    </nav>
-  );
+                {/* user profile */}
+                <UserProfile />
+            </div>
+        </nav>
+    );
 };
 
 export default MainNav;

@@ -5,9 +5,10 @@ import data from "starter-code/data.json";
 
 const Movies = () => {
     const moviesData = data.filter(item => item.category === "Movie");
+    console.log(moviesData);
 
     return (
-        <main className='px-4 mt-6'>
+        <main className='px-4 mt-6 md:px-6'>
             <PageTitle>Movies</PageTitle>
 
             <section className='mt-6'>
@@ -15,10 +16,10 @@ const Movies = () => {
                     {moviesData.map((movie, idx) => (
                         <li key={idx}>
                             <Card
-                                minWidth={"min-w-[164px]"}
-                                bottom={"-bottom-[55px]"}
-                                height={"min-h-[175px]"}
-                                innerHeight={"min-h-[110px]"}
+                                minWidth={"min-w-[164px] md:min-w-[220px]"}
+                                bottom={"-bottom-[55px] md:-bottom-[60px]"}
+                                height={"min-h-[175px] md:min-h-[250px]"}
+                                innerHeight={"min-h-[110px] md:min-h-[180px]"}
                                 padded={"pl-0"}
                                 data={movie}
                                 dataType={"movies"}

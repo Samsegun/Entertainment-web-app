@@ -22,10 +22,10 @@ const BookMarked = () => {
                     {bookmarkMovies.map((bookmark, idx) => (
                         <li key={idx}>
                             <Card
-                                minWidth={"min-w-[164px]"}
-                                bottom={"-bottom-[55px]"}
-                                height={"min-h-[175px]"}
-                                innerHeight={"min-h-[110px]"}
+                                minWidth={"min-w-[164px] md:min-w-[220px]"}
+                                bottom={"-bottom-[55px] md:-bottom-[60px]"}
+                                height={"min-h-[175px] md:min-h-[250px]"}
+                                innerHeight={"min-h-[110px] md:min-h-[180px]"}
                                 padded={"pl-0"}
                                 data={bookmark}
                                 dataType={"bookmark"}
@@ -43,10 +43,10 @@ const BookMarked = () => {
                     {bookmarkTvseries.map((bookmark, idx) => (
                         <li key={idx}>
                             <Card
-                                minWidth={"min-w-[164px]"}
-                                bottom={"-bottom-[55px]"}
-                                height={"min-h-[175px]"}
-                                innerHeight={"min-h-[110px]"}
+                                minWidth={"min-w-[164px] md:min-w-[220px]"}
+                                bottom={"-bottom-[55px] md:-bottom-[60px]"}
+                                height={"min-h-[175px] md:min-h-[250px]"}
+                                innerHeight={"min-h-[110px] md:min-h-[180px]"}
                                 padded={"pl-0"}
                                 data={bookmark}
                                 dataType={"bookmark"}
