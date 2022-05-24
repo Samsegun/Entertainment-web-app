@@ -98,6 +98,7 @@ const Card = ({
                             {rating}
                         </span>
                     </div>
+
                     {/* movie title */}
                     <h2
                         className={`font-medium text-[15px] mt-1 text-white tracking-wider ${

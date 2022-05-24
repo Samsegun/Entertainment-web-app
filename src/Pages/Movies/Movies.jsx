@@ -8,7 +8,7 @@ const Movies = () => {
     console.log(moviesData);
 
     return (
-        <main className='px-4 mt-6 md:px-6 xl:pl-[164px]'>
+        <main className='px-4 mt-6 md:px-6 xl:pl-[164px] xl:mt-12'>
             <PageTitle>Movies</PageTitle>
 
             <section className='mt-6'>

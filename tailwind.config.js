@@ -16,6 +16,7 @@ module.exports = {
             gridTemplateColumns: {
                 mobile: "repeat(auto-fit, minmax(164px, 1fr))",
                 tablet: "repeat(auto-fit, minmax(220px, 1fr))",
+                desktop: "repeat(auto-fit, minmax(auto, 1fr))",
             },
         },
     },
