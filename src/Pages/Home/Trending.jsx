@@ -1,18 +1,33 @@
+import { useEffect, useRef, useState } from "react";
 import Card from "Components/CardUI";
 import PageTitle from "Components/PageTitle";
 import appData from "starter-code/data.json";
+import { motion } from "framer-motion";
+// import Carousel from "framer-motion-carousel";
 
 const Trending = () => {
-    // filter out data that are not trending
+    // const [width, setWidth] = useState(0);
+    // const carousel = useRef();
+
+    // useEffect(() => {
+    //     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
+    // }, []);
+
+    // filter out non-trending data
     const trendingData = appData.filter(item => item.isTrending);
-    console.log(trendingData);
+
     return (
         <section className='pl-4 mt-6 text-white'>
             <PageTitle>Trending</PageTitle>
 
             {/* trending cards */}
-            <div className='mt-4 overflow-x-scroll scrollbar'>
-                <div className='flex gap-4 min-w-[1280px] md:min-w-[2510px] md:gap-10'>
+            <motion.div
+                // ref={carousel}
+                className='mt-4 overflow-x-scroll scrollbar'>
+                <motion.div
+                    // drag='x'
+                    // dragConstraints={{ right: 0, left: -width }}
+                    className='flex gap-4 min-w-[1280px] md:min-w-[2510px] md:gap-10'>
                     {trendingData.map((data, idx) => (
                         <Card
                             minWidth={"min-w-[250px] md:min-w-[470px]"}
@@ -25,8 +40,8 @@ const Trending = () => {
                             key={idx}
                         />
                     ))}
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         </section>
     );
 };

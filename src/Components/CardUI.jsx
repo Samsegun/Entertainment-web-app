@@ -4,6 +4,7 @@ import bookmarkIcon from "starter-code/assets/icon-bookmark-full.svg";
 import tvseriesIcon from "starter-code/assets/icon-category-tv.svg";
 import movieIcon from "starter-code/assets/icon-category-movie.svg";
 import Dot from "./dot";
+import { motion } from "framer-motion";
 
 // this card ui is optimized for all format in DATA
 const Card = ({
@@ -55,8 +56,41 @@ const Card = ({
         gradients = "";
     }
 
+    // for animations
+    const cardVariants = {
+        hidden: {
+            y: -30,
+            opacity: 0,
+            scale: 1,
+        },
+
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                delay: 0.3,
+                type: "spring",
+                damping: 5,
+            },
+        },
+
+        hover: {
+            scale: dataType === "trending" ? 1 : 1.1,
+            transition: {
+                type: "spring",
+                damping: 5,
+            },
+        },
+    };
+
     return (
-        <div className={`${height}`}>
+        <motion.div
+            className={`${height} cursor-pointer`}
+            variants={cardVariants}
+            initial='hidden'
+            animate='visible'
+            whileHover='hover'
+            draggable='false'>
             <article
                 style={{
                     backgroundImage: `${gradients} url(${thumbnail})`,
@@ -110,7 +144,7 @@ const Card = ({
                     </h2>
                 </div>
             </article>
-        </div>
+        </motion.div>
     );
 };
 

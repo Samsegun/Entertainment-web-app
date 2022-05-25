@@ -2,14 +2,16 @@ import searchIcon from "starter-code/assets/icon-search.svg";
 
 const SearchBar = () => {
     return (
-        <form className='flex items-center pl-4 mt-6 w-full xl:w-full xl:max-w-[1920px] xl:m-auto xl:pl-[164px]'>
+        <form
+            className='flex items-center pl-4 mt-6 w-full xl:w-full 
+        xl:max-w-[1920px] xl:m-auto xl:pl-[164px]'>
             <button className=''>
                 <img src={searchIcon} alt='search icon' />
             </button>
             <input
                 type='text'
                 placeholder='Search for movies or TV series'
-                className='text-base font-light text-white w-4/5 pl-4 
+                className='text-base font-light text-white cursor-pointer w-4/5 pl-4 
             bg-[transparent] outline-none md:text-2xl md:pl-6'
             />
             {/* <button className=''>
