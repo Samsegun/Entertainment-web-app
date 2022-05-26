@@ -1,7 +1,8 @@
 import PageTitle from "Components/PageTitle";
 import GridContainer from "Components/GridContainer";
 import Card from "Components/CardUI";
-import data from "starter-code/data.json";
+import data from "starter-code/adjustedData.json";
+import { storeDataActions } from "ReduxStore/storeData";
 
 const BookMarked = () => {
     const bookmarkData = data.filter(item => item.isBookmarked);
@@ -18,48 +19,70 @@ const BookMarked = () => {
             <PageTitle>Bookmarked Movies</PageTitle>
 
             <section className='mt-6'>
-                <GridContainer>
-                    {bookmarkMovies.map((bookmark, idx) => (
-                        <li key={idx}>
-                            <Card
-                                minWidth={"min-w-[164px] md:min-w-[220px]"}
-                                bottom={"-bottom-[55px] md:-bottom-[60px]"}
-                                height={
-                                    "min-h-[175px] md:min-h-[250px] xl:min-h-[280px]"
-                                }
-                                innerHeight={
-                                    "min-h-[110px] md:min-h-[180px] xl:min-h-[210px]"
-                                }
-                                padded={"pl-0"}
-                                data={bookmark}
-                                dataType={"bookmark"}
-                            />
-                        </li>
-                    ))}
-                </GridContainer>
+                {/* if bookmarked movies length is greater than 0(true), display ui below  */}
+                {bookmarkMovies.length > 0 && (
+                    <GridContainer>
+                        {bookmarkMovies.map((bookmark, idx) => (
+                            <li key={idx}>
+                                <Card
+                                    minWidth={"min-w-[164px] md:min-w-[220px]"}
+                                    bottom={"-bottom-[55px] md:-bottom-[60px]"}
+                                    height={
+                                        "min-h-[175px] md:min-h-[250px] xl:min-h-[280px]"
+                                    }
+                                    innerHeight={
+                                        "min-h-[110px] md:min-h-[180px] xl:min-h-[210px]"
+                                    }
+                                    padded={"pl-0"}
+                                    data={bookmark}
+                                    dataType={"bookmark"}
+                                />
+                            </li>
+                        ))}
+                    </GridContainer>
+                )}
+
+                {/* if bookmarked movies length is 0(false), display ui below  */}
+                {!bookmarkMovies.length && (
+                    <div className='mb-10 text-2xl text-center text-white md:text-3xl'>
+                        You've no Bookmarks yet
+                    </div>
+                )}
             </section>
 
             {/* bookmarked tv series */}
             <PageTitle>Bookmarked TV Series</PageTitle>
 
             <section className='mt-6'>
-                <GridContainer>
-                    {bookmarkTvseries.map((bookmark, idx) => (
-                        <li key={idx}>
-                            <Card
-                                minWidth={
-                                    "min-w-[164px] md:min-w-[220px] xl:w-[280px]"
-                                }
-                                bottom={"-bottom-[55px] md:-bottom-[60px]"}
-                                height={"min-h-[175px] md:min-h-[250px]"}
-                                innerHeight={"min-h-[110px] md:min-h-[180px]"}
-                                padded={"pl-0"}
-                                data={bookmark}
-                                dataType={"bookmark"}
-                            />
-                        </li>
-                    ))}
-                </GridContainer>
+                {/* if bookmarked tv series length is greater than 0(true), display ui below  */}
+                {bookmarkTvseries.length > 0 && (
+                    <GridContainer>
+                        {bookmarkTvseries.map((bookmark, idx) => (
+                            <li key={idx}>
+                                <Card
+                                    minWidth={
+                                        "min-w-[164px] md:min-w-[220px] xl:w-[280px]"
+                                    }
+                                    bottom={"-bottom-[55px] md:-bottom-[60px]"}
+                                    height={"min-h-[175px] md:min-h-[250px]"}
+                                    innerHeight={
+                                        "min-h-[110px] md:min-h-[180px]"
+                                    }
+                                    padded={"pl-0"}
+                                    data={bookmark}
+                                    dataType={"bookmark"}
+                                />
+                            </li>
+                        ))}
+                    </GridContainer>
+                )}
+
+                {/* if bookmarked tv series length is 0(false) display ui below  */}
+                {!bookmarkTvseries.length && (
+                    <div className='mb-10 text-2xl text-center text-white md:text-3xl'>
+                        You've no Bookmarks yet
+                    </div>
+                )}
             </section>
         </main>
     );

@@ -1,12 +1,11 @@
 import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
-import appData from "starter-code/data.json";
 import GridContainer from "Components/GridContainer";
+import appData from "starter-code/adjustedData.json";
 
 const Recommended = () => {
     // filter out data that are trending
     const recommendedData = appData.filter(item => !item.isTrending);
-    console.log(recommendedData);
 
     return (
         <section className='px-4 mt-6 md:px-6 xl:mt-16'>

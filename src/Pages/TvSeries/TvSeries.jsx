@@ -1,7 +1,7 @@
 import Card from "Components/CardUI";
 import GridContainer from "Components/GridContainer";
 import PageTitle from "Components/PageTitle";
-import data from "starter-code/data.json";
+import data from "starter-code/adjustedData.json";
 
 const TvSeries = () => {
     const tvseriesData = data.filter(item => item.category === "TV Series");

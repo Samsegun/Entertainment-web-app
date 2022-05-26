@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+// import { useEffect, useRef, useState } from "react";
 import Card from "Components/CardUI";
 import PageTitle from "Components/PageTitle";
-import appData from "starter-code/data.json";
+import appData from "starter-code/adjustedData.json";
 import { motion } from "framer-motion";
 // import Carousel from "framer-motion-carousel";
 

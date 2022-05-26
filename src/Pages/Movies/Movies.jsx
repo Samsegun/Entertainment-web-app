@@ -1,11 +1,11 @@
 import GridContainer from "Components/GridContainer";
 import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
-import data from "starter-code/data.json";
+import data from "starter-code/adjustedData.json";
 
 const Movies = () => {
     const moviesData = data.filter(item => item.category === "Movie");
-    console.log(moviesData);
+    // console.log(moviesData);
 
     return (
         <main className='px-4 mt-6 md:px-6 xl:pl-[164px] xl:mt-12'>
