@@ -44,6 +44,7 @@ const NavLinks = () => {
             className='w-[134px] flex justify-between items-center
          md:w-[173px] xl:flex-col xl:w-auto xl:basis-4/5 xl:justify-start xl:gap-14'>
             {/* home */}
+
             <NavLink to='/'>
                 <motion.svg
                     className={styles.hover}
