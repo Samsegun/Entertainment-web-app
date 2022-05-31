@@ -17,9 +17,11 @@ const NavLinks = () => {
             case "/":
                 dispatch(navBarActions.homeIsActive());
                 break;
+
             case "/movies":
                 dispatch(navBarActions.movieIsActive());
                 break;
+
             case "/tvseries":
                 dispatch(navBarActions.tvseriesIsActive());
                 break;
