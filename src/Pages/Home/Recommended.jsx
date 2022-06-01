@@ -1,11 +1,14 @@
 import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
 import GridContainer from "Components/GridContainer";
-import appData from "starter-code/adjustedData.json";
+// import appData from "starter-code/adjustedData.json";
+import { useSelector } from "react-redux";
 
 const Recommended = () => {
-    // filter out data that are trending
-    const recommendedData = appData.filter(item => !item.isTrending);
+    // from redux store, select storeData slice and filter out data currently trending
+    const recommendedData = useSelector(state =>
+        state.storeData.items.filter(item => !item.isTrending)
+    );
 
     return (
         <section className='px-4 mt-6 md:px-6 xl:mt-16'>

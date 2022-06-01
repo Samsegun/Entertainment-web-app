@@ -1,12 +1,14 @@
 // import { useEffect, useRef, useState } from "react";
 import Card from "Components/CardUI";
 import PageTitle from "Components/PageTitle";
-import appData from "starter-code/adjustedData.json";
+// import appData from "starter-code/adjustedData.json";
+import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 // import Carousel from "framer-motion-carousel";
 
 const Trending = () => {
     // const [width, setWidth] = useState(0);
+
     // const carousel = useRef();
 
     // useEffect(() => {
@@ -14,7 +16,11 @@ const Trending = () => {
     // }, []);
 
     // filter out non-trending data
-    const trendingData = appData.filter(item => item.isTrending);
+    /* from redux store, select storeData slice and filter out
+    data whose isTrending is false */
+    const trendingData = useSelector(state =>
+        state.storeData.items.filter(item => item.isTrending)
+    );
 
     return (
         <section className='pl-4 mt-6 text-white'>

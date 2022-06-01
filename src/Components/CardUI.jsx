@@ -1,4 +1,6 @@
 import { useMediaQuery } from "react-responsive";
+import { useDispatch } from "react-redux";
+import { storeDataActions } from "ReduxStore/storeData";
 import bookmarkEmpty from "starter-code/assets/icon-bookmark-empty.svg";
 import bookmarkIcon from "starter-code/assets/icon-bookmark-full.svg";
 import tvseriesIcon from "starter-code/assets/icon-category-tv.svg";
@@ -18,11 +20,14 @@ const Card = ({
 }) => {
     const { category, rating, title, year, isBookmarked } = data;
 
+    const dispatch = useDispatch();
+
     // media queries for setting bg-image
     const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
     const isTablet = useMediaQuery({ query: "(min-width: 768px)" });
     const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
 
+    // for setting thumbnails and linear gradients on background-images
     let thumbnail;
     let gradients;
 
@@ -50,9 +55,6 @@ const Card = ({
         isTablet && (thumbnail = data.thumbnail.regular.medium);
         isDesktop && (thumbnail = data.thumbnail.regular.large);
 
-        // thumbnail = data.isTrending
-        //     ? data.thumbnail.trending
-        //     : data.thumbnail.regular;
         gradients = "";
     }
 
@@ -83,6 +85,10 @@ const Card = ({
         },
     };
 
+    const bookmarkHandler = () => {
+        dispatch(storeDataActions.bookMarked(title));
+    };
+
     return (
         <motion.div
             className={`${height} cursor-pointer`}
@@ -96,7 +102,9 @@ const Card = ({
                     backgroundImage: `${gradients} url(${thumbnail})`,
                 }}
                 className={`rounded-lg relative bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}>
-                <button className='absolute p-2 rounded-full right-2 top-2 bg-bookmark'>
+                <button
+                    onClick={bookmarkHandler}
+                    className='absolute p-2 transition-all delay-200 rounded-full right-2 top-2 bg-bookmark hover:scale-125'>
                     {isBookmarked && (
                         <img src={bookmarkIcon} alt='bookmarked' />
                     )}

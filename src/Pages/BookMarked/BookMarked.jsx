@@ -1,11 +1,16 @@
 import PageTitle from "Components/PageTitle";
 import GridContainer from "Components/GridContainer";
 import Card from "Components/CardUI";
-import data from "starter-code/adjustedData.json";
+import { useSelector } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
 
 const BookMarked = () => {
-    const bookmarkData = data.filter(item => item.isBookmarked);
+    /* from redux store, select storeData slice and filter out
+    data whose  */
+    const bookmarkData = useSelector(state =>
+        state.storeData.items.filter(item => item.isBookmarked)
+    );
+
     const bookmarkMovies = bookmarkData.filter(
         item => item.category === "Movie"
     );
@@ -25,13 +30,17 @@ const BookMarked = () => {
                         {bookmarkMovies.map((bookmark, idx) => (
                             <li key={idx}>
                                 <Card
-                                    minWidth={"min-w-[164px] md:min-w-[220px]"}
-                                    bottom={"-bottom-[55px] md:-bottom-[60px]"}
+                                    minWidth={
+                                        "min-w-[164px] md:min-w-[220px] xl:min-w-[325px]"
+                                    }
+                                    bottom={
+                                        "-bottom-[55px] md:-bottom-[60px] xl:-bottom-[75px]"
+                                    }
                                     height={
-                                        "min-h-[175px] md:min-h-[250px] xl:min-h-[280px]"
+                                        "min-h-[175px] md:min-h-[250px] xl:min-h-[330px]"
                                     }
                                     innerHeight={
-                                        "min-h-[110px] md:min-h-[180px] xl:min-h-[210px]"
+                                        "min-h-[110px] md:min-h-[180px] xl:min-h-[250px]"
                                     }
                                     padded={"pl-0"}
                                     data={bookmark}
@@ -45,7 +54,7 @@ const BookMarked = () => {
                 {/* if bookmarked movies length is 0(false), display ui below  */}
                 {!bookmarkMovies.length && (
                     <div className='mb-10 text-2xl text-center text-white md:text-3xl'>
-                        You've no Bookmarks yet
+                        You've no Bookmarked movies yet
                     </div>
                 )}
             </section>
@@ -61,12 +70,16 @@ const BookMarked = () => {
                             <li key={idx}>
                                 <Card
                                     minWidth={
-                                        "min-w-[164px] md:min-w-[220px] xl:w-[280px]"
+                                        "min-w-[164px] md:min-w-[220px] xl:min-w-[325px]"
                                     }
-                                    bottom={"-bottom-[55px] md:-bottom-[60px]"}
-                                    height={"min-h-[175px] md:min-h-[250px]"}
+                                    bottom={
+                                        "-bottom-[55px] md:-bottom-[60px] xl:-bottom-[75px]"
+                                    }
+                                    height={
+                                        "min-h-[175px] md:min-h-[250px] xl:min-h-[330px]"
+                                    }
                                     innerHeight={
-                                        "min-h-[110px] md:min-h-[180px]"
+                                        "min-h-[110px] md:min-h-[180px] xl:min-h-[250px]"
                                     }
                                     padded={"pl-0"}
                                     data={bookmark}
@@ -80,7 +93,7 @@ const BookMarked = () => {
                 {/* if bookmarked tv series length is 0(false) display ui below  */}
                 {!bookmarkTvseries.length && (
                     <div className='mb-10 text-2xl text-center text-white md:text-3xl'>
-                        You've no Bookmarks yet
+                        You've no Bookmarked tv series yet
                     </div>
                 )}
             </section>
