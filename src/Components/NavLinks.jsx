@@ -3,16 +3,17 @@ import { NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { navBarActions } from "ReduxStore/navbar";
+import { storeDataActions } from "ReduxStore/storeData";
 import styles from "./navLinkStyle.module.css";
 
 const NavLinks = () => {
     const location = useLocation();
     const navLinkStatus = useSelector(state => state.navBar);
+    const bookmarkStatus = useSelector(state => state.storeData);
     const dispatch = useDispatch();
 
-    console.log(location);
-
     useEffect(() => {
+        // get active link and dispatch action to fill active link svg with white color
         switch (location.pathname) {
             case "/":
                 dispatch(navBarActions.homeIsActive());
@@ -32,6 +33,10 @@ const NavLinks = () => {
                 break;
         }
     }, [location.pathname, dispatch]);
+
+    const notificationHandler = () => {
+        dispatch(storeDataActions.hideNotification());
+    };
 
     // for hover animtions
     const svgVariants = {
@@ -95,7 +100,10 @@ const NavLinks = () => {
             </NavLink>
 
             {/* bookmarks */}
-            <NavLink to='/bookmark'>
+            <NavLink
+                to='/bookmark'
+                className='relative'
+                onClick={notificationHandler}>
                 <motion.svg
                     className={styles.hover}
                     variants={svgVariants}
@@ -108,6 +116,16 @@ const NavLinks = () => {
                         fill={navLinkStatus.bookmarkActive ? "#fff" : "#5A698F"}
                     />
                 </motion.svg>
+
+                {/* bookmark notification */}
+                {/* double !! operator prevents react from rendering 0 on the screen */}
+                {bookmarkStatus.notification && (
+                    <span
+                        className='absolute -top-[11px] text-white rounded-full
+                 cursor-default -right-6 bg-red-shade w-6 h-6 text-center'>
+                        {bookmarkStatus.numberOfNewBookmarks}
+                    </span>
+                )}
             </NavLink>
         </div>
     );

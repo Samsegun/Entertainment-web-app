@@ -26,6 +26,7 @@ const Card = ({
     const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
     const isTablet = useMediaQuery({ query: "(min-width: 768px)" });
     const isDesktop = useMediaQuery({ query: "(min-width: 1280px)" });
+    const isLargeDesktop = useMediaQuery({ query: "(min-width: 1592px)" });
 
     // for setting thumbnails and linear gradients on background-images
     let thumbnail;
@@ -100,6 +101,7 @@ const Card = ({
             <article
                 style={{
                     backgroundImage: `${gradients} url(${thumbnail})`,
+                    backgroundPosition: `${isLargeDesktop && "top"}`,
                 }}
                 className={`rounded-lg relative bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}>
                 <button

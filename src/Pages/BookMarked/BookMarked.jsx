@@ -2,7 +2,7 @@ import PageTitle from "Components/PageTitle";
 import GridContainer from "Components/GridContainer";
 import Card from "Components/CardUI";
 import { useSelector } from "react-redux";
-import { storeDataActions } from "ReduxStore/storeData";
+// import { storeDataActions } from "ReduxStore/storeData";
 
 const BookMarked = () => {
     /* from redux store, select storeData slice and filter out
@@ -30,17 +30,13 @@ const BookMarked = () => {
                         {bookmarkMovies.map((bookmark, idx) => (
                             <li key={idx}>
                                 <Card
-                                    minWidth={
-                                        "min-w-[164px] md:min-w-[220px] xl:min-w-[325px]"
-                                    }
+                                    minWidth={"min-w-[164px] md:min-w-[220px]"}
                                     bottom={
                                         "-bottom-[55px] md:-bottom-[60px] xl:-bottom-[75px]"
                                     }
-                                    height={
-                                        "min-h-[175px] md:min-h-[250px] xl:min-h-[330px]"
-                                    }
+                                    height={"min-h-[175px] md:min-h-[250px]"}
                                     innerHeight={
-                                        "min-h-[110px] md:min-h-[180px] xl:min-h-[250px]"
+                                        "min-h-[110px] md:min-h-[180px]"
                                     }
                                     padded={"pl-0"}
                                     data={bookmark}
@@ -69,17 +65,13 @@ const BookMarked = () => {
                         {bookmarkTvseries.map((bookmark, idx) => (
                             <li key={idx}>
                                 <Card
-                                    minWidth={
-                                        "min-w-[164px] md:min-w-[220px] xl:min-w-[325px]"
-                                    }
+                                    minWidth={"min-w-[164px] md:min-w-[220px]"}
                                     bottom={
                                         "-bottom-[55px] md:-bottom-[60px] xl:-bottom-[75px]"
                                     }
-                                    height={
-                                        "min-h-[175px] md:min-h-[250px] xl:min-h-[330px]"
-                                    }
+                                    height={"min-h-[175px] md:min-h-[250px]"}
                                     innerHeight={
-                                        "min-h-[110px] md:min-h-[180px] xl:min-h-[250px]"
+                                        "min-h-[110px] md:min-h-[180px]"
                                     }
                                     padded={"pl-0"}
                                     data={bookmark}

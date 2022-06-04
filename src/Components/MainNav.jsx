@@ -5,7 +5,7 @@ import UserProfile from "./UserProfile";
 const MainNav = () => {
     return (
         <nav
-            className='bg-dark-blue py-[18px] px-4 md:mx-4 md:rounded-[10px]
+            className='bg-dark-blue py-[18px] px-4 md:mx-6 md:mt-6 md:rounded-[10px]
          xl:absolute xl:w-24 xl:m-0 xl:left-8 xl:h-[960px] xl:top-8 xl:py-8'>
             <div
                 className='flex items-center justify-between
