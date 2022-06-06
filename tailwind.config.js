@@ -8,6 +8,7 @@ module.exports = {
             "dark-blue": "#161D2F",
             bookmark: "#8c9fd063",
             white: "#FFFFFF",
+            transparent: "transparent",
         },
         fontFamily: {
             outfit: ["Outfit", "sans-serif"],

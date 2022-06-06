@@ -5,22 +5,32 @@ import BookMarked from "Pages/BookMarked/BookMarked";
 import Home from "Pages/Home/Home";
 import Movies from "Pages/Movies/Movies";
 import TvSeries from "Pages/TvSeries/TvSeries";
+import Signup from "Pages/SignUp/Signup";
+import { useState } from "react";
+import Login from "Pages/Login/Login";
 
 function App() {
+    const [showNavandSearch, setShowNavandSearch] = useState(true);
+
     return (
         <div
             className='relative min-h-screen font-outfit bg-very-dark-blue 
         scroll-smooth xl:pt-16 max-w-[1920px] mx-auto'>
             <Router>
                 {/* page navigation */}
-                <MainNav />
+                {showNavandSearch && <MainNav />}
 
                 {/* search form */}
-                <SearchBar />
+                {showNavandSearch && <SearchBar />}
 
                 <Routes>
                     {/* home page */}
-                    <Route path='/' element={<Home />} />
+                    <Route
+                        path='/'
+                        element={
+                            <Home setShowNavSearch={setShowNavandSearch} />
+                        }
+                    />
 
                     {/* movies page */}
                     <Route path='/movies' element={<Movies />} />
@@ -30,6 +40,22 @@ function App() {
 
                     {/* bookmark page */}
                     <Route path='/bookmark' element={<BookMarked />} />
+
+                    {/* sign up page */}
+                    <Route
+                        path='/signup'
+                        element={
+                            <Signup setShowNavSearch={setShowNavandSearch} />
+                        }
+                    />
+
+                    {/* login page */}
+                    <Route
+                        path='/login'
+                        element={
+                            <Login setShowNavSearch={setShowNavandSearch} />
+                        }
+                    />
                 </Routes>
             </Router>
         </div>

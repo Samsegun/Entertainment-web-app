@@ -50,7 +50,7 @@ const BookMarked = () => {
                 {/* if bookmarked movies length is 0(false), display ui below  */}
                 {!bookmarkMovies.length && (
                     <div className='mb-10 text-2xl text-center text-white md:text-3xl'>
-                        You've no Bookmarked movies yet
+                        You've not bookmarked any movies yet
                     </div>
                 )}
             </section>
@@ -85,7 +85,7 @@ const BookMarked = () => {
                 {/* if bookmarked tv series length is 0(false) display ui below  */}
                 {!bookmarkTvseries.length && (
                     <div className='mb-10 text-2xl text-center text-white md:text-3xl'>
-                        You've no Bookmarked tv series yet
+                        You've not bookmarked any tv series yet
                     </div>
                 )}
             </section>
