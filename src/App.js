@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import MainNav from "Components/MainNav";
 import SearchBar from "Components/SearchBar";
 import BookMarked from "Pages/BookMarked/BookMarked";
@@ -6,7 +7,6 @@ import Home from "Pages/Home/Home";
 import Movies from "Pages/Movies/Movies";
 import TvSeries from "Pages/TvSeries/TvSeries";
 import Signup from "Pages/SignUp/Signup";
-import { useState } from "react";
 import Login from "Pages/Login/Login";
 
 function App() {

@@ -8,6 +8,7 @@ const FormContainer = ({
     accountAction,
     action,
     destination,
+    isDisabled,
     children,
 }) => {
     return (
@@ -30,7 +31,7 @@ const FormContainer = ({
                 {/* form */}
                 <form className='mt-4 mb-6'>
                     {children}
-                    <ButtonUI>{action}</ButtonUI>
+                    <ButtonUI isDisabled={isDisabled}>{action}</ButtonUI>
                 </form>
 
                 <p className='font-light text-center text-white'>
