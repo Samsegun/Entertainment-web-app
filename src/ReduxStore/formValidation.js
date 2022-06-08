@@ -9,6 +9,7 @@ const initialFormValidation = {
     passwordInput: { error: null, message: null },
     repeatPasswordInput: { error: null, message: null },
     submitButtonDisabled: true,
+    submitLoginButtonDisabled: true,
 };
 
 const formValidationSlice = createSlice({
@@ -36,6 +37,7 @@ const formValidationSlice = createSlice({
                 state.submitButtonDisabled = true;
             }
         },
+
         validatePassword(state, action) {
             // if password input is less than 6 characters
             if (action.payload.psswrd.length < 6) {
@@ -78,6 +80,7 @@ const formValidationSlice = createSlice({
                 state.submitButtonDisabled = true;
             }
         },
+
         validateRepeatPassword(state, action) {
             if (action.payload.repeatPsswrd !== action.payload.psswrd) {
                 state.repeatPasswordInput = {
@@ -99,6 +102,46 @@ const formValidationSlice = createSlice({
                 state.submitButtonDisabled = false;
             } else {
                 state.submitButtonDisabled = true;
+            }
+        },
+
+        validateLoginEmail(state, action) {
+            if (validEmailRegex.test(action.payload)) {
+                state.emailInput = { error: false, message: null };
+            } else {
+                state.emailInput = {
+                    error: true,
+                    message: "Enter valid email",
+                };
+            }
+            // enable submit button if no errors
+            if (
+                state.emailInput.error === false &&
+                state.passwordInput.error === false
+            ) {
+                state.submitLoginButtonDisabled = false;
+            } else {
+                state.submitLoginButtonDisabled = true;
+            }
+        },
+
+        validateLoginPassword(state, action) {
+            if (action.payload.length < 6) {
+                state.passwordInput = {
+                    error: true,
+                    message: "password is too short",
+                };
+            } else {
+                state.passwordInput = { error: false, message: null };
+            }
+            // enable submit button if no errors
+            if (
+                state.emailInput.error === false &&
+                state.passwordInput.error === false
+            ) {
+                state.submitLoginButtonDisabled = false;
+            } else {
+                state.submitLoginButtonDisabled = true;
             }
         },
     },

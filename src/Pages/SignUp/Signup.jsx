@@ -14,8 +14,6 @@ const Signup = props => {
 
     useEffect(() => {
         props.setShowNavSearch(false);
-        // console.log(formState.passwordInput.value)
-        // console.log(formState.repeatPasswordInput.value)
     }, [props]);
 
     const emailChangeHandler = () => {
