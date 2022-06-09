@@ -5,8 +5,8 @@ const validEmailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 const initialFormValidation = {
-    emailInput: { error: null, message: null },
-    passwordInput: { error: null, message: null },
+    emailInput: { error: null, message: null, userEmail: null },
+    passwordInput: { error: null, message: null, userPassword: null },
     repeatPasswordInput: { error: null, message: null },
     submitButtonDisabled: true,
     submitLoginButtonDisabled: true,
@@ -18,7 +18,11 @@ const formValidationSlice = createSlice({
     reducers: {
         validateEmail(state, action) {
             if (validEmailRegex.test(action.payload)) {
-                state.emailInput = { error: false, message: null };
+                state.emailInput = {
+                    error: false,
+                    message: null,
+                    userEmail: action.payload,
+                };
             } else {
                 state.emailInput = {
                     error: true,
@@ -66,6 +70,7 @@ const formValidationSlice = createSlice({
                 state.passwordInput = {
                     error: false,
                     message: null,
+                    userPassword: action.payload.psswrd,
                 };
             }
 
@@ -107,7 +112,11 @@ const formValidationSlice = createSlice({
 
         validateLoginEmail(state, action) {
             if (validEmailRegex.test(action.payload)) {
-                state.emailInput = { error: false, message: null };
+                state.emailInput = {
+                    error: false,
+                    message: null,
+                    userEmail: action.payload,
+                };
             } else {
                 state.emailInput = {
                     error: true,
@@ -132,7 +141,11 @@ const formValidationSlice = createSlice({
                     message: "password is too short",
                 };
             } else {
-                state.passwordInput = { error: false, message: null };
+                state.passwordInput = {
+                    error: false,
+                    message: null,
+                    userPassword: action.payload,
+                };
             }
             // enable submit button if no errors
             if (
@@ -144,8 +157,21 @@ const formValidationSlice = createSlice({
                 state.submitLoginButtonDisabled = true;
             }
         },
+        disableButtonOnSubmit(state) {
+            console.log(state.emailInput.userEmail);
+            console.log(state.passwordInput.userPassword);
+
+            state.submitButtonDisabled = true;
+            state.submitLoginButtonDisabled = true;
+        },
     },
 });
+
+// const sendFormData = (formData) => {
+//     return (dispatch) => {
+//         dispatch()
+//     }
+// }
 
 export const validateFormActions = formValidationSlice.actions;
 

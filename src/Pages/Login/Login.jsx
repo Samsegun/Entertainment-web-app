@@ -23,6 +23,12 @@ const Login = props => {
         );
     };
 
+    const onSubmitHandler = e => {
+        e.preventDefault();
+
+        dispatch(validateFormActions.disableButtonOnSubmit());
+    };
+
     useEffect(() => {
         props.setShowNavSearch(false);
     }, [props]);
@@ -34,7 +40,8 @@ const Login = props => {
             accountAction='Sign Up'
             action='Login to your account'
             destination='/signup'
-            isDisabled={formState.submitLoginButtonDisabled}>
+            isDisabled={formState.submitLoginButtonDisabled}
+            onSubmitHandler={onSubmitHandler}>
             <InputUI
                 type='email'
                 placeholder='Email address'

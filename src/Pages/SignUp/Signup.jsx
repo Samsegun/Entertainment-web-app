@@ -3,6 +3,7 @@ import FormContainer from "Components/FormContainer";
 import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
 import { validateFormActions } from "ReduxStore/formValidation";
+import { auth } from "firebase.js";
 
 const Signup = props => {
     const emailRef = useRef();
@@ -11,6 +12,8 @@ const Signup = props => {
 
     const formState = useSelector(state => state.validateForm);
     const dispatch = useDispatch();
+
+    console.log(auth);
 
     useEffect(() => {
         props.setShowNavSearch(false);
@@ -38,6 +41,12 @@ const Signup = props => {
         );
     };
 
+    const onSubmitHandler = e => {
+        e.preventDefault();
+
+        dispatch(validateFormActions.disableButtonOnSubmit());
+    };
+
     return (
         <FormContainer
             heading='Sign Up'
@@ -45,7 +54,8 @@ const Signup = props => {
             accountAction='Login'
             action='Create an account'
             destination='/login'
-            isDisabled={formState.submitButtonDisabled}>
+            isDisabled={formState.submitButtonDisabled}
+            onSubmitHandler={onSubmitHandler}>
             <InputUI
                 type='email'
                 placeholder='Email address'

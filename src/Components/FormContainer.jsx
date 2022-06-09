@@ -9,6 +9,7 @@ const FormContainer = ({
     action,
     destination,
     isDisabled,
+    onSubmitHandler,
     children,
 }) => {
     return (
@@ -29,7 +30,7 @@ const FormContainer = ({
                 </h2>
 
                 {/* form */}
-                <form className='mt-4 mb-6'>
+                <form className='mt-4 mb-6' onSubmit={onSubmitHandler}>
                     {children}
                     <ButtonUI isDisabled={isDisabled}>{action}</ButtonUI>
                 </form>
