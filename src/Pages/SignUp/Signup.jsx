@@ -3,17 +3,23 @@ import FormContainer from "Components/FormContainer";
 import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
 import { validateFormActions } from "ReduxStore/formValidation";
-import { auth } from "firebase.js";
+import { userSliceActions } from "ReduxStore/userSlice";
+import {
+    auth,
+    createUserWithEmailAndPassword,
+    updateProfile,
+    // signInWithEmailAndPassword,
+} from "firebase.js";
 
 const Signup = props => {
+    // refs
     const emailRef = useRef();
     const passwordRef = useRef();
     const repeatPasswordRef = useRef();
 
     const formState = useSelector(state => state.validateForm);
+    // const slicet = useSelector(state => state.userSlice);
     const dispatch = useDispatch();
-
-    console.log(auth);
 
     useEffect(() => {
         props.setShowNavSearch(false);
@@ -45,6 +51,37 @@ const Signup = props => {
         e.preventDefault();
 
         dispatch(validateFormActions.disableButtonOnSubmit());
+
+        createUserWithEmailAndPassword(
+            auth,
+            formState.emailInput.userEmail,
+            formState.passwordInput.userPassword
+        )
+            .then(userAuth => {
+                console.log(userAuth);
+                updateProfile(userAuth.user, {
+                    displayName: "lulu",
+                    photoURL: null,
+                })
+                    .then(
+                        dispatch(
+                            userSliceActions.login({
+                                email: userAuth.user.email,
+                                uid: userAuth.user.uid,
+                                // displayName: name,
+                                // photoURL: null,
+                            })
+                        )
+                    )
+                    .catch(error => {
+                        alert("user not updated" + error);
+                    });
+                console.log(userAuth);
+                console.log("success");
+            })
+            .catch(error => {
+                alert(error);
+            });
     };
 
     return (

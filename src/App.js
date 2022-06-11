@@ -1,5 +1,10 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// import { useDispatch, useSelector } from 'react-redux';
+// import { userSliceActions } from "ReduxStore/userSlice";
+// import { auth, onAuthStateChanged } from './firebase';
+
 import MainNav from "Components/MainNav";
 import SearchBar from "Components/SearchBar";
 import BookMarked from "Pages/BookMarked/BookMarked";
@@ -11,6 +16,33 @@ import Login from "Pages/Login/Login";
 
 function App() {
     const [showNavandSearch, setShowNavandSearch] = useState(true);
+
+    // const currentUser = useSelector(state => state.userSlice.user);
+    // const dispatch = useDispatch();
+
+    // check at page load if a user is authenticated
+    // useEffect(() => {
+    // const unSubscribe = auth.onAuthStateChanged(user => {
+    //     setCurrentUser(user);
+    //   });
+
+    //   return unSubscribe;
+    // onAuthStateChanged(auth, (userAuth) => {
+    //   if (userAuth) {
+    //     // user is logged in, send the user's details to redux, store the current user in the state
+    //     dispatch(
+    //       userSliceActions.login({
+    //         email: userAuth.email,
+    //         uid: userAuth.uid,
+    //         displayName: userAuth.displayName,
+    //         photoUrl: userAuth.photoURL,
+    //       })
+    //     );
+    //   } else {
+    //     dispatch(userSliceActions.logout());
+    //   }
+    // });
+    //   }, []);
 
     return (
         <div

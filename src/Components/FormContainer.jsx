@@ -17,7 +17,7 @@ const FormContainer = ({
             className='w-11/12 mx-auto mt-12 md:mt-20 md:w-[55%]
          xl:w-[40%] xl:mt-10 xl:min-h-screen xl:mb-8'>
             {/* logo */}
-            <div>
+            <div className='m-auto w-fit'>
                 <Link to='/'>
                     <img src={logo} alt='page logo' className='mx-auto' />
                 </Link>
