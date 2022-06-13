@@ -68,8 +68,6 @@ const Signup = props => {
                             userSliceActions.login({
                                 email: userAuth.user.email,
                                 uid: userAuth.user.uid,
-                                // displayName: name,
-                                // photoURL: null,
                             })
                         )
                     )
