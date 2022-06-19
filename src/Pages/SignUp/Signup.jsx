@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import FormContainer from "Components/FormContainer";
 import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,6 @@ import {
     auth,
     createUserWithEmailAndPassword,
     updateProfile,
-    // signInWithEmailAndPassword,
 } from "firebase.js";
 
 const Signup = props => {
@@ -16,6 +16,8 @@ const Signup = props => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const repeatPasswordRef = useRef();
+
+    // const navigate = useNavigate()
 
     const formState = useSelector(state => state.validateForm);
     // const slicet = useSelector(state => state.userSlice);
