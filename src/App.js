@@ -13,6 +13,7 @@ import Movies from "Pages/Movies/Movies";
 import TvSeries from "Pages/TvSeries/TvSeries";
 import Signup from "Pages/SignUp/Signup";
 import Login from "Pages/Login/Login";
+import UserDashboard from "Pages/UserDashboard/userDashboard";
 
 function App() {
     const [showNavandSearch, setShowNavandSearch] = useState(true);
@@ -86,6 +87,16 @@ function App() {
                         path='/login'
                         element={
                             <Login setShowNavSearch={setShowNavandSearch} />
+                        }
+                    />
+
+                    {/* user profile page */}
+                    <Route
+                        path='/userdashboard'
+                        element={
+                            <UserDashboard
+                                setShowNavSearch={setShowNavandSearch}
+                            />
                         }
                     />
                 </Routes>

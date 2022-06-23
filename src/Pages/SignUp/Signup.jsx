@@ -68,6 +68,7 @@ const Signup = props => {
                         dispatch(
                             userSliceActions.login({
                                 email: userAuth.user.email,
+                                userName: userAuth.user.displayName,
                                 uid: userAuth.user.uid,
                             })
                         )
