@@ -17,7 +17,7 @@ const Signup = props => {
     const passwordRef = useRef();
     const repeatPasswordRef = useRef();
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const formState = useSelector(state => state.validateForm);
     // const slicet = useSelector(state => state.userSlice);
@@ -60,9 +60,8 @@ const Signup = props => {
             formState.passwordInput.userPassword
         )
             .then(userAuth => {
-                console.log(userAuth);
                 updateProfile(userAuth.user, {
-                    displayName: "lulu",
+                    displayName: "user",
                     photoURL: null,
                 })
                     .then(
@@ -74,13 +73,15 @@ const Signup = props => {
                         )
                     )
                     .catch(error => {
-                        alert("user not updated" + error);
+                        alert("user not updated" + error.message);
                     });
                 console.log(userAuth);
                 console.log("success");
+                navigate("/", { replace: true });
             })
             .catch(error => {
-                alert(error);
+                alert(error.message);
+                dispatch(validateFormActions.enableButtonOnError("isSignUp"));
             });
     };
 

@@ -158,11 +158,17 @@ const formValidationSlice = createSlice({
             }
         },
         disableButtonOnSubmit(state) {
-            console.log(state.emailInput.userEmail);
-            console.log(state.passwordInput.userPassword);
-
             state.submitButtonDisabled = true;
             state.submitLoginButtonDisabled = true;
+        },
+        enableButtonOnError(state, action) {
+            if (action.payload === "isSignUp") {
+                state.submitButtonDisabled = false;
+                state.submitLoginButtonDisabled = true;
+            } else if (action.payload === "isLogIn") {
+                state.submitLoginButtonDisabled = false;
+                state.submitButtonDisabled = false;
+            }
         },
     },
 });

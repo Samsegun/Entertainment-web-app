@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import FormContainer from "Components/FormContainer";
 import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +10,8 @@ import { auth, signInWithEmailAndPassword } from "firebase.js";
 const Login = props => {
     const emailRef = useRef();
     const passwordRef = useRef();
+
+    const navigate = useNavigate();
 
     const formState = useSelector(state => state.validateForm);
     const dispatch = useDispatch();
@@ -46,9 +49,11 @@ const Login = props => {
                     })
                 );
                 console.log("success");
+                navigate("/", { replace: true });
             })
             .catch(error => {
-                alert(error);
+                alert(error.message);
+                dispatch(validateFormActions.enableButtonOnError("isLogIn"));
             });
     };
 
