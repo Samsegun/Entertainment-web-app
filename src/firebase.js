@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 import "firebase/auth";
 import {
     getAuth,
@@ -24,6 +25,8 @@ const auth = getAuth(app);
 // const provider = new firebase.auth.GoogleAuthProvider();
 // export { auth, provider };
 
+const storage = getStorage(app);
+
 export {
     auth,
     createUserWithEmailAndPassword,
@@ -31,6 +34,7 @@ export {
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signOut,
+    storage,
 };
 
 export default app;

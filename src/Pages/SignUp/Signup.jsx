@@ -5,11 +5,7 @@ import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
 import { validateFormActions } from "ReduxStore/formValidation";
 import { userSliceActions } from "ReduxStore/userSlice";
-import {
-    auth,
-    createUserWithEmailAndPassword,
-    updateProfile,
-} from "firebase.js";
+import { auth, createUserWithEmailAndPassword } from "firebase.js";
 
 const Signup = props => {
     // refs
@@ -60,22 +56,15 @@ const Signup = props => {
             formState.passwordInput.userPassword
         )
             .then(userAuth => {
-                updateProfile(userAuth.user, {
-                    displayName: "user",
-                    photoURL: null,
-                })
-                    .then(
-                        dispatch(
-                            userSliceActions.login({
-                                email: userAuth.user.email,
-                                userName: userAuth.user.displayName,
-                                uid: userAuth.user.uid,
-                            })
-                        )
-                    )
-                    .catch(error => {
-                        alert("user not updated" + error.message);
-                    });
+                console.log("updated profile");
+                dispatch(
+                    userSliceActions.login({
+                        email: userAuth.user.email,
+                        userName: userAuth.user.displayName,
+                        profilePix: userAuth.user.photoURL,
+                        uid: userAuth.user.uid,
+                    })
+                );
                 console.log(userAuth);
                 console.log("success");
                 navigate("/", { replace: true });

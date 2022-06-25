@@ -9,6 +9,9 @@ module.exports = {
             "dark-blue": "#161D2F",
             bookmark: "#8c9fd063",
             white: "#FFFFFF",
+            "faded-white": "#ffffff73",
+            "transparent-white": "#ffffff16",
+            disabled: "#353639b3",
             transparent: "transparent",
         },
         fontFamily: {

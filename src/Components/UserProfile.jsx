@@ -46,9 +46,11 @@ const UserProfile = () => {
 
             {userState && (
                 <img
-                    src={userAvatar}
+                    src={
+                        userState.profilePix ? userState.profilePix : userAvatar
+                    }
                     alt='avatar'
-                    className='transition-all duration-200 bg-white border-2 border-white rounded-full cursor-pointer hover:scale-125'
+                    className='w-full h-full transition-all duration-200 bg-white border-2 border-white border-none rounded-full cursor-pointer hover:scale-125'
                     onClick={signInOptions}
                 />
             )}

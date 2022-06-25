@@ -1,10 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-// import { useDispatch, useSelector } from 'react-redux';
-// import { userSliceActions } from "ReduxStore/userSlice";
-// import { auth, onAuthStateChanged } from './firebase';
-
+import { Routes, Route } from "react-router-dom";
 import MainNav from "Components/MainNav";
 import SearchBar from "Components/SearchBar";
 import BookMarked from "Pages/BookMarked/BookMarked";
@@ -14,6 +9,7 @@ import TvSeries from "Pages/TvSeries/TvSeries";
 import Signup from "Pages/SignUp/Signup";
 import Login from "Pages/Login/Login";
 import UserDashboard from "Pages/UserDashboard/userDashboard";
+import PrivateRoute from "Components/PrivateRoute";
 
 function App() {
     const [showNavandSearch, setShowNavandSearch] = useState(true);
@@ -49,58 +45,52 @@ function App() {
         <div
             className='relative min-h-screen font-outfit bg-very-dark-blue 
         scroll-smooth xl:pt-16 max-w-[1920px] mx-auto'>
-            <Router>
-                {/* page navigation */}
-                {showNavandSearch && <MainNav />}
+            {/* page navigation */}
+            {showNavandSearch && <MainNav />}
 
-                {/* search form */}
-                {showNavandSearch && <SearchBar />}
+            {/* search form */}
+            {showNavandSearch && <SearchBar />}
 
-                <Routes>
-                    {/* home page */}
-                    <Route
-                        path='/'
-                        element={
-                            <Home setShowNavSearch={setShowNavandSearch} />
-                        }
-                    />
+            <Routes>
+                {/* home page */}
+                <Route
+                    path='/'
+                    element={<Home setShowNavSearch={setShowNavandSearch} />}
+                />
 
-                    {/* movies page */}
-                    <Route path='/movies' element={<Movies />} />
+                {/* movies page */}
+                <Route path='/movies' element={<Movies />} />
 
-                    {/* tv series page */}
-                    <Route path='/tvseries' element={<TvSeries />} />
+                {/* tv series page */}
+                <Route path='/tvseries' element={<TvSeries />} />
 
-                    {/* bookmark page */}
-                    <Route path='/bookmark' element={<BookMarked />} />
+                {/* bookmark page */}
+                <Route path='/bookmark' element={<BookMarked />} />
 
-                    {/* sign up page */}
-                    <Route
-                        path='/signup'
-                        element={
-                            <Signup setShowNavSearch={setShowNavandSearch} />
-                        }
-                    />
+                {/* sign up page */}
+                <Route
+                    path='/signup'
+                    element={<Signup setShowNavSearch={setShowNavandSearch} />}
+                />
 
-                    {/* login page */}
-                    <Route
-                        path='/login'
-                        element={
-                            <Login setShowNavSearch={setShowNavandSearch} />
-                        }
-                    />
+                {/* login page */}
+                <Route
+                    path='/login'
+                    element={<Login setShowNavSearch={setShowNavandSearch} />}
+                />
 
-                    {/* user profile page */}
-                    <Route
-                        path='/userdashboard'
-                        element={
+                {/* user profile page */}
+                <Route
+                    path='/userdashboard'
+                    element={
+                        <PrivateRoute>
                             <UserDashboard
                                 setShowNavSearch={setShowNavandSearch}
                             />
-                        }
-                    />
-                </Routes>
-            </Router>
+                        </PrivateRoute>
+                    }
+                />
+            </Routes>
         </div>
     );
 }

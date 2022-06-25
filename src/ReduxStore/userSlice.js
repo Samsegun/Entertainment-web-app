@@ -16,6 +16,9 @@ const userSlice = createSlice({
         logout(state) {
             state.user = null;
         },
+        updateUserProfilePix(state, action) {
+            state.user.profilePix = action.payload;
+        },
     },
 });
 

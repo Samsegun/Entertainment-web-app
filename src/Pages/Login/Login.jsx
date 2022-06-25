@@ -44,8 +44,8 @@ const Login = props => {
                     userSliceActions.login({
                         email: userAuth.user.email,
                         uid: userAuth.user.uid,
-                        displayName: userAuth.user.displayName,
-                        photoUrl: userAuth.user.photoURL,
+                        userName: userAuth.user.displayName,
+                        profilePix: userAuth.user.photoURL,
                     })
                 );
                 console.log("success");
