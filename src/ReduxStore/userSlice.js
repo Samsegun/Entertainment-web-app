@@ -11,7 +11,6 @@ const userSlice = createSlice({
         login(state, action) {
             console.log(action.payload);
             state.user = action.payload;
-            // state.displayName =
         },
         logout(state) {
             state.user = null;
