@@ -13,6 +13,7 @@ module.exports = {
             "transparent-white": "#ffffff16",
             disabled: "#353639b3",
             transparent: "transparent",
+            backdrop: "rgba(30, 30, 30, 0.3)",
         },
         fontFamily: {
             outfit: ["Outfit", "sans-serif"],

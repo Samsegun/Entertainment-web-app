@@ -5,6 +5,8 @@ const initialNav = {
     moviesActive: false,
     tvseriesActive: false,
     bookmarkActive: false,
+    showSignInOptions: false,
+    backdrop: false,
 };
 
 const navBarSlice = createSlice({
@@ -34,6 +36,12 @@ const navBarSlice = createSlice({
             state.homeActive = false;
             state.moviesActive = false;
             state.tvseriesActive = false;
+        },
+        setShowSignInOptions(state, action) {
+            state.showSignInOptions = action.payload;
+        },
+        setBackDrop(state, action) {
+            state.backdrop = action.payload;
         },
     },
 });

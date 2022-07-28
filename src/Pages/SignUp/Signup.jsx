@@ -5,6 +5,7 @@ import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
 import { validateFormActions } from "ReduxStore/formValidation";
 import { userSliceActions } from "ReduxStore/userSlice";
+import { navBarActions } from "ReduxStore/navbar";
 import { auth, createUserWithEmailAndPassword } from "firebase.js";
 
 const Signup = props => {
@@ -16,12 +17,17 @@ const Signup = props => {
     const navigate = useNavigate();
 
     const formState = useSelector(state => state.validateForm);
-    // const slicet = useSelector(state => state.userSlice);
+    // const navbarState = useSelector(state => state.navBar);
     const dispatch = useDispatch();
 
     useEffect(() => {
         props.setShowNavSearch(false);
-    }, [props]);
+
+        dispatch(navBarActions.setBackDrop(false));
+        dispatch(navBarActions.setShowSignInOptions(false));
+
+        // return props.setShowNavSearch(true);
+    }, [props, dispatch]);
 
     const emailChangeHandler = () => {
         dispatch(validateFormActions.validateEmail(emailRef.current.value));
@@ -56,16 +62,17 @@ const Signup = props => {
             formState.passwordInput.userPassword
         )
             .then(userAuth => {
-                console.log("updated profile");
-                dispatch(
-                    userSliceActions.login({
-                        email: userAuth.user.email,
-                        userName: userAuth.user.displayName,
-                        profilePix: userAuth.user.photoURL,
-                        uid: userAuth.user.uid,
-                    })
-                );
                 console.log(userAuth);
+
+                const userDetails = {
+                    email: userAuth.user.email,
+                    userName: userAuth.user.displayName,
+                    profilePix: userAuth.user.photoURL,
+                    uid: userAuth.user.uid,
+                };
+
+                dispatch(userSliceActions.login(userDetails));
+                sessionStorage.setItem("user", JSON.stringify(userDetails));
                 console.log("success");
                 navigate("/", { replace: true });
             })

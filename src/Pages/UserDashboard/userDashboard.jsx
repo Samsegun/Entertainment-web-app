@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import logo from "starter-code/assets/logo.svg";
 import { userSliceActions } from "ReduxStore/userSlice";
+import { navBarActions } from "ReduxStore/navbar";
 import { storage, auth, updateProfile } from "firebase.js";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import userAvatar from "starter-code/user-avatar.svg";
@@ -25,7 +26,10 @@ const UserDashboard = props => {
 
     useEffect(() => {
         props.setShowNavSearch(false);
-    }, [props]);
+
+        dispatch(navBarActions.setBackDrop(false));
+        dispatch(navBarActions.setShowSignInOptions(false));
+    }, [props, dispatch]);
 
     const handleChange = evt => {
         console.log(evt.target.files[0]);
@@ -55,11 +59,15 @@ const UserDashboard = props => {
                 // update progress
                 setPercent(percent);
             },
-            err => console.log(err),
+            err => {
+                alert(err);
+                console.log(err);
+            },
             () => {
                 // download url
                 getDownloadURL(uploadTask.snapshot.ref).then(url => {
                     console.log(url);
+                    localStorage.setItem("userImage", url);
                     dispatch(userSliceActions.updateUserProfilePix(url));
                 });
             }
@@ -118,16 +126,21 @@ const UserDashboard = props => {
                                     )}
                                     {currentUser.profilePix && (
                                         <img
-                                            src={currentUser.profilePix}
+                                            src={localStorage.getItem(
+                                                "userImage"
+                                            )}
                                             alt=''
                                             className='w-full h-full rounded-full'
                                         />
                                     )}
                                 </td>
                                 <td>
-                                    <label className='p-2 transition-all duration-300 rounded cursor-pointer bg-dark-blue hover:scale-110 '>
+                                    <label
+                                        htmlFor='file'
+                                        className='p-2 transition-all duration-300 rounded cursor-pointer bg-dark-blue hover:scale-110 '>
                                         <input
                                             type='file'
+                                            id='file'
                                             accept='image/*'
                                             onChange={handleChange}
                                             className='hidden'

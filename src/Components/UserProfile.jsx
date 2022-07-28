@@ -1,26 +1,34 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { navBarActions } from "ReduxStore/navbar";
 import { userSliceActions } from "ReduxStore/userSlice";
 import userIcon from "starter-code/user-icon.svg";
 import userAvatar from "starter-code/user-avatar.svg";
 import { auth, signOut } from "firebase.js";
 
 const UserProfile = () => {
-    const [showSignInOptions, setShowSignInOptions] = useState(false);
-
     const userState = useSelector(state => state.userSlice.user);
+    const navbarState = useSelector(state => state.navBar);
     const dispatch = useDispatch();
 
+    useEffect(() => {}, []);
+
     const signInOptions = () => {
-        setShowSignInOptions(!showSignInOptions);
+        dispatch(
+            navBarActions.setShowSignInOptions(!navbarState.showSignInOptions)
+        );
+        dispatch(
+            navBarActions.setBackDrop(navbarState.backdrop ? false : true)
+        );
     };
 
     const logOutHandler = () => {
         signOut(auth)
             .then(() => {
-                alert("You are currently signed out!");
                 dispatch(userSliceActions.logout());
+                sessionStorage.removeItem("user");
+                alert("You are currently signed out!");
             })
             .catch(err => {
                 alert(err.message);
@@ -28,7 +36,7 @@ const UserProfile = () => {
     };
 
     return (
-        <div className='relative w-6 h-6 xl:w-11 xl:h-11'>
+        <div className='relative z-30 w-6 h-6 xl:w-11 xl:h-11'>
             {/* {userState && (
                 <span className='absolute z-10 block text-lg text-white bottom-12'>
                     {userState.displayName}
@@ -56,7 +64,7 @@ const UserProfile = () => {
             )}
 
             {/* sign-in options */}
-            {showSignInOptions && (
+            {navbarState.showSignInOptions && (
                 <div
                     className={`min-w-[7.5rem] text-white text-center
              bg-light-blue rounded absolute z-10 top-8 -left-24 transition-all duration-300 text-lg

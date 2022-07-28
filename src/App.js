@@ -1,5 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { navBarActions } from "ReduxStore/navbar";
 import MainNav from "Components/MainNav";
 import SearchBar from "Components/SearchBar";
 import BookMarked from "Pages/BookMarked/BookMarked";
@@ -13,6 +16,15 @@ import PrivateRoute from "Components/PrivateRoute";
 
 function App() {
     const [showNavandSearch, setShowNavandSearch] = useState(true);
+
+    const navbarState = useSelector(state => state.navBar);
+    // const user = useSelector(state => state.userSlice.user);
+    const dispatch = useDispatch();
+
+    const backdropHandler = () => {
+        dispatch(navBarActions.setBackDrop(false));
+        dispatch(navBarActions.setShowSignInOptions(false));
+    };
 
     // const currentUser = useSelector(state => state.userSlice.user);
     // const dispatch = useDispatch();
@@ -50,6 +62,15 @@ function App() {
 
             {/* search form */}
             {showNavandSearch && <SearchBar />}
+
+            {/* backdrop. backdrop element is rendered before root element in index.html */}
+            {navbarState.backdrop &&
+                ReactDOM.createPortal(
+                    <div
+                        className='fixed top-0 z-10 w-full h-full bg-backdrop'
+                        onClick={backdropHandler}></div>,
+                    document.getElementById("backdrop-root")
+                )}
 
             <Routes>
                 {/* home page */}

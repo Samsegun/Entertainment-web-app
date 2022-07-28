@@ -5,6 +5,7 @@ import InputUI from "Components/InputUI";
 import { useDispatch, useSelector } from "react-redux";
 import { validateFormActions } from "ReduxStore/formValidation";
 import { userSliceActions } from "ReduxStore/userSlice";
+import { navBarActions } from "ReduxStore/navbar";
 import { auth, signInWithEmailAndPassword } from "firebase.js";
 
 const Login = props => {
@@ -40,15 +41,16 @@ const Login = props => {
         )
             .then(userAuth => {
                 console.log(userAuth);
-                dispatch(
-                    userSliceActions.login({
-                        email: userAuth.user.email,
-                        uid: userAuth.user.uid,
-                        userName: userAuth.user.displayName,
-                        profilePix: userAuth.user.photoURL,
-                    })
-                );
-                console.log("success");
+
+                const userDetails = {
+                    email: userAuth.user.email,
+                    userName: userAuth.user.displayName,
+                    profilePix: userAuth.user.photoURL,
+                    uid: userAuth.user.uid,
+                };
+
+                dispatch(userSliceActions.login(userDetails));
+                sessionStorage.setItem("user", JSON.stringify(userDetails));
                 navigate("/", { replace: true });
             })
             .catch(error => {
@@ -59,7 +61,10 @@ const Login = props => {
 
     useEffect(() => {
         props.setShowNavSearch(false);
-    }, [props]);
+
+        dispatch(navBarActions.setBackDrop(false));
+        dispatch(navBarActions.setShowSignInOptions(false));
+    }, [props, dispatch]);
 
     return (
         <FormContainer
