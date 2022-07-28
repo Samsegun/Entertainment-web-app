@@ -5,8 +5,14 @@ import logo from "starter-code/assets/logo.svg";
 import { userSliceActions } from "ReduxStore/userSlice";
 import { navBarActions } from "ReduxStore/navbar";
 import { storage, auth, updateProfile } from "firebase.js";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+    ref,
+    uploadBytesResumable,
+    getDownloadURL,
+    uploadBytes,
+} from "firebase/storage";
 import userAvatar from "starter-code/user-avatar.svg";
+import loadingImage from "starter-code/1488.gif";
 
 const UserDashboard = props => {
     // State to store uploaded file
@@ -16,7 +22,7 @@ const UserDashboard = props => {
     const [uploadBtn, setUploadBtn] = useState(true);
 
     // progress
-    const [percent, setPercent] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     // redux
     const currentUser = useSelector(state => state.userSlice.user);
@@ -42,36 +48,56 @@ const UserDashboard = props => {
         if (!file) {
             alert("Please upload an image first!");
         }
+        setLoading(true);
 
         const storageRef = ref(storage, `/files/${file.name}`);
 
+        uploadBytes(storageRef, file)
+            .then(() => {
+                getDownloadURL(storageRef)
+                    .then(url => {
+                        dispatch(userSliceActions.updateUserProfilePix(url));
+                        sessionStorage.setItem("userImage", url);
+                    })
+                    .catch(error => {
+                        console.log(error.message, "error getting image url");
+                        setLoading(false);
+                    });
+                setFile(null);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error.message, "error uploading image");
+                setLoading(false);
+            });
+
         // progress can be paused and resumed. It also exposes progress updates.
         // Receives the storage reference and the file to upload.
-        const uploadTask = uploadBytesResumable(storageRef, file);
+        // const uploadTask = uploadBytesResumable(storageRef, file);
 
-        uploadTask.on(
-            "state_changed",
-            snapshot => {
-                const percent = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                );
+        // uploadTask.on(
+        //     "state_changed",
+        //     snapshot => {
+        //         const percent = Math.round(
+        //             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        //         );
 
-                // update progress
-                setPercent(percent);
-            },
-            err => {
-                alert(err);
-                console.log(err);
-            },
-            () => {
-                // download url
-                getDownloadURL(uploadTask.snapshot.ref).then(url => {
-                    console.log(url);
-                    localStorage.setItem("userImage", url);
-                    dispatch(userSliceActions.updateUserProfilePix(url));
-                });
-            }
-        );
+        //         // update progress
+        //         setPercent(percent);
+        //     },
+        //     err => {
+        //         alert(err);
+        //         console.log(err);
+        //     },
+        //     () => {
+        //         // download url
+        //         getDownloadURL(uploadTask.snapshot.ref).then(url => {
+        //             console.log(url);
+        //             localStorage.setItem("userImage", url);
+        //             dispatch(userSliceActions.updateUserProfilePix(url));
+        //         });
+        //     }
+        // );
     };
 
     return (
@@ -126,7 +152,7 @@ const UserDashboard = props => {
                                     )}
                                     {currentUser.profilePix && (
                                         <img
-                                            src={localStorage.getItem(
+                                            src={sessionStorage.getItem(
                                                 "userImage"
                                             )}
                                             alt=''
@@ -148,7 +174,18 @@ const UserDashboard = props => {
                                         Change profile picture
                                     </label>
 
-                                    <span>{percent}%</span>
+                                    {!loading && <span>{file?.name}</span>}
+
+                                    {loading && (
+                                        <img
+                                            src={loadingImage}
+                                            alt=''
+                                            className='inline-block w-[40px]
+                                        rounded-full ml-4
+                                        '
+                                        />
+                                    )}
+                                    {/* <span>{percent}%</span> */}
                                 </td>
 
                                 <td>

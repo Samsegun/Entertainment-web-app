@@ -28,6 +28,7 @@ const UserProfile = () => {
             .then(() => {
                 dispatch(userSliceActions.logout());
                 sessionStorage.removeItem("user");
+                sessionStorage.removeItem("userImage");
                 alert("You are currently signed out!");
             })
             .catch(err => {
@@ -55,8 +56,13 @@ const UserProfile = () => {
             {userState && (
                 <img
                     src={
-                        userState.profilePix ? userState.profilePix : userAvatar
+                        sessionStorage.getItem("userImage")
+                            ? sessionStorage.getItem("userImage")
+                            : userAvatar
                     }
+                    // src={
+                    //     userState.profilePix ? userState.profilePix : userAvatar
+                    // }
                     alt='avatar'
                     className='w-full h-full transition-all duration-200 bg-white border-2 border-white border-none rounded-full cursor-pointer hover:scale-125'
                     onClick={signInOptions}
@@ -89,13 +95,6 @@ const UserProfile = () => {
                     )}
 
                     {/* if user is signed in, show log out button and user profile button */}
-                    {userState && (
-                        <button
-                            className={`my-3 duration-200 hover:scale-105 `}
-                            onClick={logOutHandler}>
-                            Log Out
-                        </button>
-                    )}
 
                     {userState && (
                         <Link to='/userdashboard'>
@@ -104,6 +103,14 @@ const UserProfile = () => {
                                 User Profile
                             </button>
                         </Link>
+                    )}
+
+                    {userState && (
+                        <button
+                            className={`my-3 duration-200 hover:scale-105 `}
+                            onClick={logOutHandler}>
+                            Log Out
+                        </button>
                     )}
                 </div>
             )}
