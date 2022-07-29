@@ -1,18 +1,45 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import GridContainer from "Components/GridContainer";
 import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { storeDataActions } from "ReduxStore/storeData";
 
 const Movies = () => {
+    // const [searchData, setSearchData] = useState(false);
+
     /* from redux store, select storeData slice and filter out
     data whose category is not movie */
-    const moviesData = useSelector(state =>
-        state.storeData.items.filter(item => item.category === "Movie")
-    );
+    const moviesData = useSelector(state => {
+        if (state.storeData.searchData?.length) {
+            return state.storeData.searchData.filter(
+                item => item.category === "Movie"
+            );
+        } else {
+            return state.storeData.items.filter(
+                item => item.category === "Movie"
+            );
+        }
+    });
+    const userInput = useSelector(state => state.storeData.userInput);
+    // userInput ? setSearchData(false) : setSearchData(true);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => dispatch(storeDataActions.resetData());
+    }, [dispatch]);
 
     return (
         <main className='px-4 mt-6 md:px-6 xl:pl-[164px] xl:mt-12'>
-            <PageTitle>Movies</PageTitle>
+            {!userInput && <PageTitle>Movies</PageTitle>}
+
+            {userInput && (
+                <PageTitle>
+                    Found {moviesData.length} result for '{userInput}'
+                </PageTitle>
+            )}
 
             <section className='mt-6'>
                 <GridContainer>

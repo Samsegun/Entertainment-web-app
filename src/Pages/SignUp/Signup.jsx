@@ -62,8 +62,6 @@ const Signup = props => {
             formState.passwordInput.userPassword
         )
             .then(userAuth => {
-                console.log(userAuth);
-
                 const userDetails = {
                     email: userAuth.user.email,
                     userName: userAuth.user.displayName,
@@ -73,7 +71,6 @@ const Signup = props => {
 
                 dispatch(userSliceActions.login(userDetails));
                 sessionStorage.setItem("user", JSON.stringify(userDetails));
-                console.log("success");
                 navigate("/", { replace: true });
             })
             .catch(error => {

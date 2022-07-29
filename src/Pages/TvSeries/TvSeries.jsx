@@ -1,14 +1,30 @@
 import Card from "Components/CardUI";
 import GridContainer from "Components/GridContainer";
 import PageTitle from "Components/PageTitle";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { storeDataActions } from "ReduxStore/storeData";
 
 const TvSeries = () => {
     /* from redux store, select storeData slice and filter out
     data whose category is not tv series */
-    const tvseriesData = useSelector(state =>
-        state.storeData.items.filter(item => item.category === "TV Series")
-    );
+    const tvseriesData = useSelector(state => {
+        if (state.storeData.searchData?.length) {
+            return state.storeData.searchData.filter(
+                item => item.category === "TV Series"
+            );
+        } else {
+            return state.storeData.items.filter(
+                item => item.category === "TV Series"
+            );
+        }
+    });
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => dispatch(storeDataActions.resetData());
+    }, [dispatch]);
 
     return (
         <main className='px-4 mt-6 xl:pl-[164px] xl:mt-12'>

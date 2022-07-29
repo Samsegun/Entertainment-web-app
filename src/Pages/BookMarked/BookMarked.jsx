@@ -1,15 +1,21 @@
+import { useEffect } from "react";
 import PageTitle from "Components/PageTitle";
 import GridContainer from "Components/GridContainer";
 import Card from "Components/CardUI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { storeDataActions } from "ReduxStore/storeData";
 // import { storeDataActions } from "ReduxStore/storeData";
 
 const BookMarked = () => {
     /* from redux store, select storeData slice and filter out
     data whose  */
-    const bookmarkData = useSelector(state =>
-        state.storeData.items.filter(item => item.isBookmarked)
-    );
+    const bookmarkData = useSelector(state => {
+        if (state.storeData.searchData?.length) {
+            return state.storeData.searchData.filter(item => item.isBookmarked);
+        } else {
+            return state.storeData.items.filter(item => item.isBookmarked);
+        }
+    });
 
     const bookmarkMovies = bookmarkData.filter(
         item => item.category === "Movie"
@@ -17,6 +23,12 @@ const BookMarked = () => {
     const bookmarkTvseries = bookmarkData.filter(
         item => item.category === "TV Series"
     );
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => dispatch(storeDataActions.resetData());
+    }, [dispatch]);
 
     return (
         <main className='px-4 mt-6 xl:pl-[164px]'>

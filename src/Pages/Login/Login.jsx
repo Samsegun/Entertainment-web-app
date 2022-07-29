@@ -40,8 +40,6 @@ const Login = props => {
             formState.passwordInput.userPassword
         )
             .then(userAuth => {
-                console.log(userAuth);
-
                 const userDetails = {
                     email: userAuth.user.email,
                     userName: userAuth.user.displayName,

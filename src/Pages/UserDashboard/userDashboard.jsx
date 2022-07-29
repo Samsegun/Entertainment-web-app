@@ -4,13 +4,8 @@ import { Link } from "react-router-dom";
 import logo from "starter-code/assets/logo.svg";
 import { userSliceActions } from "ReduxStore/userSlice";
 import { navBarActions } from "ReduxStore/navbar";
-import { storage, auth, updateProfile } from "firebase.js";
-import {
-    ref,
-    uploadBytesResumable,
-    getDownloadURL,
-    uploadBytes,
-} from "firebase/storage";
+import { storage } from "firebase.js";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import userAvatar from "starter-code/user-avatar.svg";
 import loadingImage from "starter-code/1488.gif";
 
@@ -27,8 +22,6 @@ const UserDashboard = props => {
     // redux
     const currentUser = useSelector(state => state.userSlice.user);
     const dispatch = useDispatch();
-
-    console.log(currentUser);
 
     useEffect(() => {
         props.setShowNavSearch(false);
@@ -60,44 +53,17 @@ const UserDashboard = props => {
                         sessionStorage.setItem("userImage", url);
                     })
                     .catch(error => {
-                        console.log(error.message, "error getting image url");
+                        alert(error.message, "error getting image url");
                         setLoading(false);
                     });
                 setFile(null);
                 setLoading(false);
+                setUploadBtn(true);
             })
             .catch(error => {
-                console.log(error.message, "error uploading image");
+                alert(error.message, "error uploading image");
                 setLoading(false);
             });
-
-        // progress can be paused and resumed. It also exposes progress updates.
-        // Receives the storage reference and the file to upload.
-        // const uploadTask = uploadBytesResumable(storageRef, file);
-
-        // uploadTask.on(
-        //     "state_changed",
-        //     snapshot => {
-        //         const percent = Math.round(
-        //             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        //         );
-
-        //         // update progress
-        //         setPercent(percent);
-        //     },
-        //     err => {
-        //         alert(err);
-        //         console.log(err);
-        //     },
-        //     () => {
-        //         // download url
-        //         getDownloadURL(uploadTask.snapshot.ref).then(url => {
-        //             console.log(url);
-        //             localStorage.setItem("userImage", url);
-        //             dispatch(userSliceActions.updateUserProfilePix(url));
-        //         });
-        //     }
-        // );
     };
 
     return (
@@ -143,14 +109,14 @@ const UserDashboard = props => {
                             <tr className='flex flex-wrap items-center justify-between gap-4'>
                                 <td>User Avatar:</td>
                                 <td className='w-[35px] h-[35px]'>
-                                    {!currentUser.profilePix && (
+                                    {!sessionStorage.getItem("userImage") && (
                                         <img
                                             src={userAvatar}
                                             alt=''
                                             className='w-full h-full'
                                         />
                                     )}
-                                    {currentUser.profilePix && (
+                                    {sessionStorage.getItem("userImage") && (
                                         <img
                                             src={sessionStorage.getItem(
                                                 "userImage"

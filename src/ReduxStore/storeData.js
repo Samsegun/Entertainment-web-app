@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import appData from "starter-code/adjustedData.json";
 
+const data = appData;
+
 const initialStoreData = {
-    items: appData,
+    items: data,
+    searchData: null,
+    userInput: "",
     numberOfNewBookmarks: 0,
     notification: false,
 };
@@ -51,6 +55,47 @@ const storeDataSlice = createSlice({
                 state.numberOfNewBookmarks = 0;
             } else {
                 return;
+            }
+        },
+        resetData(state) {
+            state.searchData = null;
+            state.userInput = "";
+        },
+        setSearchInput(state, action) {
+            const payLoad = action.payload;
+
+            state.userInput = payLoad.searchValue;
+
+            if (payLoad.pathName === "movies or TV series") {
+                state.items = state.items.filter(
+                    item => item.title.toLowerCase() === payLoad.searchValue
+                );
+                // console.log("xas");
+            } else if (payLoad.pathName === "movies") {
+                const movies = state.items.filter(
+                    item => item.category === "Movie"
+                );
+
+                state.searchData = movies.filter(
+                    movie => movie.title.toLowerCase() === payLoad.searchValue
+                );
+            } else if (payLoad.pathName === "TV series") {
+                const tvSeries = state.items.filter(
+                    item => item.category === "TV Series"
+                );
+
+                state.searchData = tvSeries.filter(
+                    series => series.title.toLowerCase() === payLoad.searchValue
+                );
+            } else if (payLoad.pathName === "bookmarked shows") {
+                const bookMarked = state.items.filter(
+                    item => item.isBookmarked
+                );
+
+                state.searchData = bookMarked.filter(
+                    bookMark =>
+                        bookMark.title.toLowerCase() === payLoad.searchValue
+                );
             }
         },
     },
