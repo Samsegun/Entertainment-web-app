@@ -5,14 +5,16 @@ import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
 import { useDispatch, useSelector } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
+import backArrow from "starter-code/icons8-back-to-16.png";
 
 const Movies = () => {
-    // const [searchData, setSearchData] = useState(false);
-
     /* from redux store, select storeData slice and filter out
     data whose category is not movie */
     const moviesData = useSelector(state => {
-        if (state.storeData.searchData?.length) {
+        if (
+            state.storeData.searchData?.length ||
+            state.storeData.searchData?.length === 0
+        ) {
             return state.storeData.searchData.filter(
                 item => item.category === "Movie"
             );
@@ -23,7 +25,7 @@ const Movies = () => {
         }
     });
     const userInput = useSelector(state => state.storeData.userInput);
-    // userInput ? setSearchData(false) : setSearchData(true);
+    const searchData = useSelector(state => state.storeData.searchData);
 
     const dispatch = useDispatch();
 
@@ -33,11 +35,20 @@ const Movies = () => {
 
     return (
         <main className='px-4 mt-6 md:px-6 xl:pl-[164px] xl:mt-12'>
-            {!userInput && <PageTitle>Movies</PageTitle>}
+            {searchData === null && <PageTitle>Movies</PageTitle>}
 
-            {userInput && (
+            {(searchData?.length === 0 || searchData?.length > 0) && (
                 <PageTitle>
-                    Found {moviesData.length} result for '{userInput}'
+                    <img
+                        src={backArrow}
+                        alt='return'
+                        className='w-10 cursor-pointer'
+                        onClick={() => dispatch(storeDataActions.resetData())}
+                    />
+                    <span>
+                        {" "}
+                        Found {moviesData.length} result for '{userInput}'{" "}
+                    </span>
                 </PageTitle>
             )}
 

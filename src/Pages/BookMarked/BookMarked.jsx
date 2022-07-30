@@ -5,12 +5,16 @@ import Card from "Components/CardUI";
 import { useDispatch, useSelector } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
 // import { storeDataActions } from "ReduxStore/storeData";
+import backArrow from "starter-code/icons8-back-to-16.png";
 
 const BookMarked = () => {
     /* from redux store, select storeData slice and filter out
     data whose  */
     const bookmarkData = useSelector(state => {
-        if (state.storeData.searchData?.length) {
+        if (
+            state.storeData.searchData?.length ||
+            state.storeData.searchData?.length === 0
+        ) {
             return state.storeData.searchData.filter(item => item.isBookmarked);
         } else {
             return state.storeData.items.filter(item => item.isBookmarked);
@@ -24,6 +28,8 @@ const BookMarked = () => {
         item => item.category === "TV Series"
     );
 
+    const userInput = useSelector(state => state.storeData.userInput);
+    const searchData = useSelector(state => state.storeData.searchData);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -33,7 +39,22 @@ const BookMarked = () => {
     return (
         <main className='px-4 mt-6 xl:pl-[164px]'>
             {/* bokkmarked movies */}
-            <PageTitle>Bookmarked Movies</PageTitle>
+            {searchData === null && <PageTitle>Bookmarked Movies</PageTitle>}
+
+            {(searchData?.length === 0 || searchData?.length > 0) && (
+                <PageTitle>
+                    <img
+                        src={backArrow}
+                        alt='return'
+                        className='w-10 cursor-pointer'
+                        onClick={() => dispatch(storeDataActions.resetData())}
+                    />
+                    <span>
+                        {" "}
+                        Found {bookmarkData.length} result for '{userInput}'{" "}
+                    </span>
+                </PageTitle>
+            )}
 
             <section className='mt-6'>
                 {/* if bookmarked movies length is greater than 0(true), display ui below  */}

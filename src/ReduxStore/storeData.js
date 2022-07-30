@@ -79,6 +79,11 @@ const storeDataSlice = createSlice({
                 state.searchData = movies.filter(
                     movie => movie.title.toLowerCase() === payLoad.searchValue
                 );
+
+                // if (state.searchData.length === 0) {
+                //     // state.searchData = null;
+                //     state.userInput = "";
+                // }
             } else if (payLoad.pathName === "TV series") {
                 const tvSeries = state.items.filter(
                     item => item.category === "TV Series"

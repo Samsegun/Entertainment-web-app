@@ -2,17 +2,52 @@ import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
 import GridContainer from "Components/GridContainer";
 // import appData from "starter-code/adjustedData.json";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { storeDataActions } from "ReduxStore/storeData";
+import backArrow from "starter-code/icons8-back-to-16.png";
+import { useEffect } from "react";
 
 const Recommended = () => {
     // from redux store, select storeData slice and filter out data currently trending
-    const recommendedData = useSelector(state =>
-        state.storeData.items.filter(item => !item.isTrending)
-    );
+    const recommendedData = useSelector(state => {
+        // state.storeData.items.filter(item => !item.isTrending)
+        if (
+            state.storeData.searchData?.length ||
+            state.storeData.searchData?.length === 0
+        ) {
+            return state.storeData.searchData.filter(item => !item.isTrending);
+        } else {
+            return state.storeData.items.filter(item => !item.isTrending);
+        }
+    });
+
+    const userInput = useSelector(state => state.storeData.userInput);
+    const searchData = useSelector(state => state.storeData.searchData);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        return () => dispatch(storeDataActions.resetData());
+    }, [dispatch]);
 
     return (
         <section className='px-4 mt-6 md:px-6 xl:mt-16'>
-            <PageTitle>Recommended for you</PageTitle>
+            {/* <PageTitle>Recommended for you</PageTitle> */}
+            {searchData === null && <PageTitle>Recommended</PageTitle>}
+
+            {(searchData?.length === 0 || searchData?.length > 0) && (
+                <PageTitle>
+                    <img
+                        src={backArrow}
+                        alt='return'
+                        className='w-10 cursor-pointer'
+                        onClick={() => dispatch(storeDataActions.resetData())}
+                    />
+                    <span>
+                        {" "}
+                        Found {recommendedData.length} result for '{userInput}'{" "}
+                    </span>
+                </PageTitle>
+            )}
 
             <GridContainer>
                 {recommendedData.map((data, idx) => (
