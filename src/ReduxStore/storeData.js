@@ -67,7 +67,7 @@ const storeDataSlice = createSlice({
             state.userInput = payLoad.searchValue;
 
             if (payLoad.pathName === "movies or TV series") {
-                state.items = state.items.filter(
+                state.searchData = state.items.filter(
                     item => item.title.toLowerCase() === payLoad.searchValue
                 );
                 // console.log("xas");

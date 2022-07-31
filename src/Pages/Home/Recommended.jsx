@@ -5,7 +5,7 @@ import GridContainer from "Components/GridContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
 import backArrow from "starter-code/icons8-back-to-16.png";
-import { useEffect } from "react";
+import ReactTooltip from "react-tooltip";
 
 const Recommended = () => {
     // from redux store, select storeData slice and filter out data currently trending
@@ -25,10 +25,6 @@ const Recommended = () => {
     const searchData = useSelector(state => state.storeData.searchData);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        return () => dispatch(storeDataActions.resetData());
-    }, [dispatch]);
-
     return (
         <section className='px-4 mt-6 md:px-6 xl:mt-16'>
             {/* <PageTitle>Recommended for you</PageTitle> */}
@@ -36,15 +32,18 @@ const Recommended = () => {
 
             {(searchData?.length === 0 || searchData?.length > 0) && (
                 <PageTitle>
+                    <ReactTooltip />
                     <img
                         src={backArrow}
                         alt='return'
                         className='w-10 cursor-pointer'
                         onClick={() => dispatch(storeDataActions.resetData())}
+                        data-tip='Return to home'
                     />
                     <span>
                         {" "}
                         Found {recommendedData.length} result for '{userInput}'{" "}
+                        in Recommended
                     </span>
                 </PageTitle>
             )}

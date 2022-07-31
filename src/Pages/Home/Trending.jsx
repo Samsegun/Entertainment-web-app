@@ -2,8 +2,11 @@
 import Card from "Components/CardUI";
 import PageTitle from "Components/PageTitle";
 // import appData from "starter-code/adjustedData.json";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import backArrow from "starter-code/icons8-back-to-16.png";
+import { storeDataActions } from "ReduxStore/storeData";
+import ReactTooltip from "react-tooltip";
 // import Carousel from "framer-motion-carousel";
 
 const Trending = () => {
@@ -18,13 +21,46 @@ const Trending = () => {
     // filter out non-trending data
     /* from redux store, select storeData slice and filter out
     data whose isTrending is false */
-    const trendingData = useSelector(state =>
-        state.storeData.items.filter(item => item.isTrending)
-    );
+    const trendingData = useSelector(state => {
+        // state.storeData.items.filter(item => item.isTrending)
+
+        if (
+            state.storeData.searchData?.length ||
+            state.storeData.searchData?.length === 0
+        ) {
+            return state.storeData.searchData.filter(item => item.isTrending);
+        } else {
+            return state.storeData.items.filter(item => item.isTrending);
+        }
+    });
+
+    const userInput = useSelector(state => state.storeData.userInput);
+    const searchData = useSelector(state => state.storeData.searchData);
+    const dispatch = useDispatch();
 
     return (
         <section className='pl-4 mt-6 text-white'>
-            <PageTitle>Trending</PageTitle>
+            {/* <PageTitle>Trending</PageTitle> */}
+
+            {searchData === null && <PageTitle>Trending</PageTitle>}
+
+            {(searchData?.length === 0 || searchData?.length > 0) && (
+                <PageTitle>
+                    <ReactTooltip />
+                    <img
+                        src={backArrow}
+                        alt='return'
+                        className='w-10 cursor-pointer'
+                        onClick={() => dispatch(storeDataActions.resetData())}
+                        data-tip='Return to home'
+                    />
+                    <span>
+                        {" "}
+                        Found {trendingData.length} result for '{userInput}' in
+                        Trending
+                    </span>
+                </PageTitle>
+            )}
 
             {/* trending cards */}
             <motion.div
