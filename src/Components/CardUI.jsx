@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
@@ -7,8 +8,11 @@ import tvseriesIcon from "starter-code/assets/icon-category-tv.svg";
 import movieIcon from "starter-code/assets/icon-category-movie.svg";
 import Dot from "./dot";
 import { motion } from "framer-motion";
+import Rodal from "rodal";
+import "rodal/lib/rodal.css";
+import styles from "./CardUI.module.css";
 
-// this card ui is optimized for all format in DATA
+// this card ui is optimized for all kinds of format in DATA
 const Card = ({
     minWidth,
     bottom,
@@ -20,6 +24,8 @@ const Card = ({
 }) => {
     const { category, rating, title, year, isBookmarked } = data;
 
+    const [visible, setVisible] = useState(false);
+    // const [hide, setHide] = useState(false)
     const dispatch = useDispatch();
 
     // media queries for setting bg-image
@@ -90,23 +96,61 @@ const Card = ({
         dispatch(storeDataActions.bookMarked(title));
     };
 
+    const showModal = () => {
+        setVisible(true);
+    };
+
+    const hideModal = () => {
+        setVisible(false);
+    };
+
     return (
-        <motion.div
-            className={`${height} cursor-pointer`}
-            variants={cardVariants}
-            initial='hidden'
-            animate='visible'
-            whileHover='hover'
-            draggable='false'>
-            <article
-                style={{
-                    backgroundImage: `${gradients} url(${thumbnail})`,
-                    backgroundPosition: `${isLargeDesktop && "top"}`,
-                }}
-                className={`rounded-lg relative bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}>
+        <>
+            <Rodal
+                visible={visible}
+                onClose={hideModal}
+                customStyles={{
+                    background: "#161D2F",
+                    color: "#fff",
+                    width: "80%",
+                    maxWidth: "920px",
+                    height: "fit-content",
+                    borderRadius: "1rem",
+                    // fontSize: "1.5rem",
+                }}>
+                <h3 className='text-2xl'>{category} Info</h3>
+                <hr />
+                <div className='mt-6'>
+                    <div>
+                        <img
+                            src={thumbnail}
+                            alt=''
+                            className='mx-auto rounded-lg'
+                        />
+                    </div>
+
+                    <div className='pt-4'>
+                        <h3 className='pb-4 text-xl'>
+                            <span className='text-2xl'>Title:</span> {title}
+                        </h3>
+                        <p className='text-xl'>
+                            <span className='text-2xl'> Synopsis</span>: Lorem
+                            ipsum dolor sit amet consectetur, adipisicing elit.
+                            Esse dignissimos consequatur praesentium ex vitae
+                        </p>
+                    </div>
+                </div>
+            </Rodal>
+            <motion.div
+                className={`${height} relative cursor-pointer`}
+                variants={cardVariants}
+                initial='hidden'
+                animate='visible'
+                whileHover='hover'
+                draggable='false'>
                 <button
                     onClick={bookmarkHandler}
-                    className='absolute p-2 transition-all delay-200 rounded-full right-2 top-2 bg-bookmark hover:scale-125'>
+                    className='absolute z-10 p-2 transition-all delay-200 rounded-full right-2 top-2 bg-bookmark hover:scale-125'>
                     {isBookmarked && (
                         <img src={bookmarkIcon} alt='bookmarked' />
                     )}
@@ -115,46 +159,62 @@ const Card = ({
                     )}
                 </button>
 
-                {/* movie info */}
-                <div className={`absolute ${padded ? padded : ""} ${bottom}`}>
-                    {/* heading */}
+                <article
+                    style={{
+                        backgroundImage: `${gradients} url(${thumbnail})`,
+                        backgroundPosition: `${isLargeDesktop && "top"}`,
+                    }}
+                    className={`rounded-lg relative bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}
+                    onClick={showModal}>
+                    {/* movie info */}
                     <div
-                        className={`flex items-center gap-2 text-xs font-light ${
-                            dataType === "trending"
-                                ? "md:text-[15px]"
-                                : "md:gap-3"
-                        }`}>
-                        <span className='text-white opacity-75'>{year}</span>
-                        <Dot />
+                        className={`absolute ${
+                            padded ? padded : ""
+                        } ${bottom}`}>
+                        {/* heading */}
+                        <div
+                            className={`flex items-center gap-2 text-xs font-light ${
+                                dataType === "trending"
+                                    ? "md:text-[15px]"
+                                    : "md:gap-3"
+                            }`}>
+                            <span className='text-white opacity-75'>
+                                {year}
+                            </span>
+                            <Dot />
 
-                        <span className='flex items-center gap-2 tracking-wider text-white opacity-75'>
-                            {category === "Movie" && (
-                                <img src={movieIcon} alt='movie icon' />
-                            )}
-                            {category === "TV Series" && (
-                                <img src={tvseriesIcon} alt='tv series icon' />
-                            )}
-                            {category}
-                        </span>
-                        <Dot />
+                            <span className='flex items-center gap-2 tracking-wider text-white opacity-75'>
+                                {category === "Movie" && (
+                                    <img src={movieIcon} alt='movie icon' />
+                                )}
+                                {category === "TV Series" && (
+                                    <img
+                                        src={tvseriesIcon}
+                                        alt='tv series icon'
+                                    />
+                                )}
+                                {category}
+                            </span>
+                            <Dot />
 
-                        <span className='tracking-widest text-white opacity-75'>
-                            {rating}
-                        </span>
+                            <span className='tracking-widest text-white opacity-75'>
+                                {rating}
+                            </span>
+                        </div>
+
+                        {/* movie title */}
+                        <h2
+                            className={`font-medium text-[15px] mt-1 text-white tracking-wider ${
+                                dataType === "trending"
+                                    ? "md:text-2xl"
+                                    : "md:text-lg"
+                            }`}>
+                            {title}
+                        </h2>
                     </div>
-
-                    {/* movie title */}
-                    <h2
-                        className={`font-medium text-[15px] mt-1 text-white tracking-wider ${
-                            dataType === "trending"
-                                ? "md:text-2xl"
-                                : "md:text-lg"
-                        }`}>
-                        {title}
-                    </h2>
-                </div>
-            </article>
-        </motion.div>
+                </article>
+            </motion.div>
+        </>
     );
 };
 

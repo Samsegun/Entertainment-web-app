@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import searchIcon from "starter-code/assets/icon-search.svg";
 import { storeDataActions } from "ReduxStore/storeData";
+import TippyWrapper from "./Tippy";
 
 const SearchBar = () => {
     const [pathName, setPathName] = useState("");
@@ -57,9 +58,11 @@ const SearchBar = () => {
             onSubmit={submitHandler}
             className='flex items-center pl-4 mt-6 w-full xl:w-full 
         xl:max-w-[1920px] xl:m-auto xl:pl-[164px] '>
-            <button className=''>
-                <img src={searchIcon} alt='search icon' />
-            </button>
+            <TippyWrapper value={`Search for ${pathName}`}>
+                <button className=''>
+                    <img src={searchIcon} alt='search icon' />
+                </button>
+            </TippyWrapper>
             <input
                 type='text'
                 placeholder={`Search for ${pathName}`}

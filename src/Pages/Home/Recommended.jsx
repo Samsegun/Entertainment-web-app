@@ -1,16 +1,13 @@
 import PageTitle from "Components/PageTitle";
 import Card from "Components/CardUI";
 import GridContainer from "Components/GridContainer";
-// import appData from "starter-code/adjustedData.json";
 import { useDispatch, useSelector } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
 import backArrow from "starter-code/icons8-back-to-16.png";
-import ReactTooltip from "react-tooltip";
 
 const Recommended = () => {
     // from redux store, select storeData slice and filter out data currently trending
     const recommendedData = useSelector(state => {
-        // state.storeData.items.filter(item => !item.isTrending)
         if (
             state.storeData.searchData?.length ||
             state.storeData.searchData?.length === 0
@@ -32,17 +29,15 @@ const Recommended = () => {
 
             {(searchData?.length === 0 || searchData?.length > 0) && (
                 <PageTitle>
-                    <ReactTooltip />
                     <img
                         src={backArrow}
                         alt='return'
                         className='w-10 cursor-pointer'
                         onClick={() => dispatch(storeDataActions.resetData())}
-                        data-tip='Return to home'
                     />
                     <span>
                         {" "}
-                        Found {recommendedData.length} result for '{userInput}'{" "}
+                        Found {recommendedData.length} result for '{userInput}'
                         in Recommended
                     </span>
                 </PageTitle>

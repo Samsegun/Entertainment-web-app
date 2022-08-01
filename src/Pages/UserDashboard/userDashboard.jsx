@@ -8,6 +8,8 @@ import { storage } from "firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import userAvatar from "starter-code/user-avatar.svg";
 import loadingImage from "starter-code/1488.gif";
+import TippyWrapper from "Components/Tippy";
+import backArrow from "starter-code/icons8-back-to-16.png";
 
 const UserDashboard = props => {
     // State to store uploaded file
@@ -68,17 +70,29 @@ const UserDashboard = props => {
 
     return (
         <>
-            <div className='mx-auto mt-8 w-fit'>
-                <Link to='/'>
-                    <img src={logo} alt='page logo' className='mx-auto' />
-                </Link>
-            </div>
+            <TippyWrapper value={"Home Page"}>
+                <div className='mx-auto mt-8 w-fit'>
+                    <Link to='/'>
+                        <img src={logo} alt='page logo' className='mx-auto' />
+                    </Link>
+                </div>
+            </TippyWrapper>
             <h2 className='mt-8 text-2xl text-center text-white'>
                 User Dashboard
             </h2>
             <div
-                className='text-white bg-bookmark w-4/5 mx-auto my-20
+                className='relative text-white bg-bookmark w-4/5 mx-auto my-20
          rounded-xl h-[80vh] flex justify-center'>
+                {/* return to home page icon */}
+                <TippyWrapper value={"Return home"}>
+                    <Link
+                        to={"/"}
+                        className='absolute flex-none w-10 h-10 cursor-pointer top-3 left-10'>
+                        {" "}
+                        <img src={backArrow} alt='' className='w-8' />
+                    </Link>
+                </TippyWrapper>
+
                 <div className='w-4/5 p-4 my-12 bg-transparent-white rounded-xl'>
                     <table className='w-full h-full'>
                         <tbody className='flex flex-col flex-wrap gap-8'>

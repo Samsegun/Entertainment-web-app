@@ -4,7 +4,6 @@ import GridContainer from "Components/GridContainer";
 import Card from "Components/CardUI";
 import { useDispatch, useSelector } from "react-redux";
 import { storeDataActions } from "ReduxStore/storeData";
-import ReactTooltip from "react-tooltip";
 // import { storeDataActions } from "ReduxStore/storeData";
 import backArrow from "starter-code/icons8-back-to-16.png";
 
@@ -44,13 +43,11 @@ const BookMarked = () => {
 
             {(searchData?.length === 0 || searchData?.length > 0) && (
                 <PageTitle>
-                    <ReactTooltip />
                     <img
                         src={backArrow}
                         alt='return'
                         className='w-10 cursor-pointer'
                         onClick={() => dispatch(storeDataActions.resetData())}
-                        data-tip='Return to bookmarks'
                     />
                     <span>
                         {" "}
