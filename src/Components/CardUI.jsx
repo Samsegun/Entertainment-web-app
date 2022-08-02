@@ -106,6 +106,7 @@ const Card = ({
 
     return (
         <>
+            {/* modal for displaying movie or series info */}
             <Rodal
                 visible={visible}
                 onClose={hideModal}
@@ -116,7 +117,6 @@ const Card = ({
                     maxWidth: "920px",
                     height: "fit-content",
                     borderRadius: "1rem",
-                    // fontSize: "1.5rem",
                 }}>
                 <h3 className='text-2xl'>{category} Info</h3>
                 <hr />
@@ -141,6 +141,7 @@ const Card = ({
                     </div>
                 </div>
             </Rodal>
+
             <motion.div
                 className={`${height} relative cursor-pointer`}
                 variants={cardVariants}

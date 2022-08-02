@@ -104,7 +104,9 @@ const UserDashboard = props => {
                                         : "new_user"}
                                 </td>
                                 <td>
-                                    <button className='p-4 bg-bookmark rounded-xl'>
+                                    <button
+                                        disabled={true}
+                                        className='p-4 cursor-not-allowed rounded-xl bg-faded-white text-disabled'>
                                         Edit
                                     </button>
                                 </td>
@@ -114,7 +116,9 @@ const UserDashboard = props => {
                                 <td>Email:</td>
                                 <td>{currentUser.email}</td>
                                 <td>
-                                    <button className='p-4 bg-bookmark rounded-xl'>
+                                    <button
+                                        disabled={true}
+                                        className='p-4 cursor-not-allowed rounded-xl bg-faded-white text-disabled'>
                                         Edit
                                     </button>
                                 </td>

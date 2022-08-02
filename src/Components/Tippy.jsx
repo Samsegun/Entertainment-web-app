@@ -12,7 +12,8 @@ const TippyWrapper = ({ children, value }) => {
             arrow={true}
             duration={200}
             delay={[10, 0]}
-            distance={8}>
+            distance={8}
+            touch={false}>
             {children}
         </Tippy>
     );
