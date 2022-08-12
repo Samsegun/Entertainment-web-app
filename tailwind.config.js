@@ -25,7 +25,19 @@ module.exports = {
                 tablet: "repeat(3, 1fr)",
                 desktop: "repeat(4, 1fr)",
             },
+            screens: {
+                tall: { raw: "(min-width: 300px) and (max-width: 374px)" },
+                "stop-fixed-nav": { raw: "(max-width: 31279px)" },
+            },
         },
     },
     plugins: [require("tailwind-scrollbar")],
 };
+
+// screens: {
+//     'tall': { 'raw': '(min-height: 800px)' },
+//     // => @media (min-height: 800px) { ... }
+
+//     'sm': {'min': '640px', 'max': '767px'},
+//     // => @media (min-width: 640px and max-width: 767px) { ... }
+//   }

@@ -150,6 +150,7 @@ const Card = ({
                 whileHover='hover'
                 draggable='false'>
                 <button
+                    type='button'
                     onClick={bookmarkHandler}
                     className='absolute z-10 p-2 transition-all delay-200 rounded-full right-2 top-2 bg-bookmark hover:scale-125'>
                     {isBookmarked && (
@@ -165,7 +166,7 @@ const Card = ({
                         backgroundImage: `${gradients} url(${thumbnail})`,
                         backgroundPosition: `${isLargeDesktop && "top"}`,
                     }}
-                    className={`rounded-lg relative bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}
+                    className={`rounded-lg relative tall:h-48 bg-no-repeat bg-cover bg-center ${minWidth} ${innerHeight}`}
                     onClick={showModal}>
                     {/* movie info */}
                     <div
