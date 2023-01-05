@@ -63,4 +63,4 @@ I will develop a better search algorithm for this project by detecting patterns 
 
 -   Github - [Samuel Oyebade](https://github.com/Samsegun/)
 -   Frontend Mentor - [@Samsegun](https://www.frontendmentor.io/profile/Samsegun)
--   Twitter - [@datsleumas](https://www.twitter.com/datsleumas)
+-   Twitter - [@samsegun10](https://www.twitter.com/samsegun10)

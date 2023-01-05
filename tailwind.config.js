@@ -33,11 +33,3 @@ module.exports = {
     },
     plugins: [require("tailwind-scrollbar")],
 };
-
-// screens: {
-//     'tall': { 'raw': '(min-height: 800px)' },
-//     // => @media (min-height: 800px) { ... }
-
-//     'sm': {'min': '640px', 'max': '767px'},
-//     // => @media (min-width: 640px and max-width: 767px) { ... }
-//   }
