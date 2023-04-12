@@ -58,13 +58,10 @@ const Trending = () => {
             )}
 
             {/* trending cards */}
-            <motion.div
-                // ref={carousel}
-                className='mt-4 overflow-x-scroll scrollbar'>
+            <motion.div className='mt-4 overflow-x-scroll scrollbar-none'>
                 <motion.div
-                    // drag='x'
-                    // dragConstraints={{ right: 0, left: -width }}
-                    className='flex gap-4 min-w-[1280px] md:min-w-[2510px] md:gap-10'>
+                    className='flex gap-4 min-w-[1280px] md:min-w-[2510px] md:gap-10'
+                    style={{ scrollSnapType: "x mandatory" }}>
                     {trendingData.map((data, idx) => (
                         <Card
                             minWidth={"min-w-[250px] md:min-w-[470px]"}

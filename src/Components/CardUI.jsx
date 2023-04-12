@@ -10,7 +10,6 @@ import Dot from "./dot";
 import { motion } from "framer-motion";
 import Rodal from "rodal";
 import "rodal/lib/rodal.css";
-import styles from "./CardUI.module.css";
 
 // this card ui is optimized for all kinds of format in DATA
 const Card = ({
