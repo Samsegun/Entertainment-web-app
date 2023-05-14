@@ -17,7 +17,7 @@ const Trending = () => {
 
     // filter out non-trending data
     /* from redux store, select storeData slice and filter out
-    data whose isTrending is false */
+    data that isn't trending i.e. isTrending: false */
     const trendingData = useSelector(state => {
         // state.storeData.items.filter(item => item.isTrending)
 
